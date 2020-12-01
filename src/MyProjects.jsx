@@ -1,5 +1,4 @@
 import './styles/App.css';
-import firebase from './Firebase';
 
 import React, { useState } from "react";
 import {
@@ -8,12 +7,13 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import firebase from './Firebase';
 
 export default class MyProjects extends React.Component {
   constructor(props) {
     super(props);
-    this.ref = firebase.firestore().collection('projects');
     this.unsubscribe = null;
+    this.ref = firebase.firestore().collection('projects');
     this.state = {
       projects: []
     };
