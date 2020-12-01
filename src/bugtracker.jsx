@@ -1,14 +1,14 @@
 import './styles/App.css';
 import React, { useState } from "react";
 import {
-  BrowserRouter as Router,
+  Router,
   Switch,
   Route,
   Link,
-  browserHistory
 } from "react-router-dom";
 import EditUser from './EditUser.js';
 import Home from './Home.jsx';
+import { createBrowserHistory } from "history";
 import MyProjects from './MyProjects.jsx';
 import NewProject from './NewProject';
 
@@ -39,7 +39,7 @@ function LeftBar() {
   );
 }
 
-function NavBar(){
+function NavBar(props){
   return(<div>
       <div id="nav" className="row align-items-center">
           <h1>Logged in as Lorenzo Balzani</h1>
@@ -48,7 +48,7 @@ function NavBar(){
         <Switch>
             <Route exact path ="/" component = {Home}/>
             <Route path="/editUser" component = {EditUser}/>
-            <Route exact path="/myProjects/newProject" component = {NewProject}/>
+            <Route history={props.history} exact path="/myProjects/newProject" component = {NewProject}/>
             <Route path="/myProjects" component = {MyProjects}/>
         </Switch>
       </div>
@@ -56,14 +56,15 @@ function NavBar(){
     )
 }
 
+const history = createBrowserHistory();
 
 export default class BugTracker extends React.Component {
     render() {
         return (<div className="container-fluid">
-          <Router>
+          <Router history={history}>
             <div className="row">
               <LeftBar/>
-              <div className="col-xs-8 col-sm-8 col-md-9"> <NavBar/> </div>
+              <div className="col-xs-8 col-sm-8 col-md-9"> <NavBar history={history}/> </div>
             </div>
           </Router>
           </div>
