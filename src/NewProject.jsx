@@ -10,6 +10,10 @@ import {
 } from "react-router-dom";
 import { Button, InputGroupText } from 'reactstrap';
 
+function createProject() {
+    return(<div>ciao</div>);
+}
+
 function Input() {
     return (<>
         <form>
@@ -29,14 +33,13 @@ function Input() {
                 <label htmlFor="inputProjectDesc" class="col-sm-3 col-form-label">Project manager</label>
                 <div class="col-sm-9">
                     <select id="inputState" class="form-control">
-                        <option selected>Choose...</option>
-                        <option>...</option>
+                        <option>Choose...</option>
                      </select>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-10">
-                    <button type="submit" class="btn btn-primary">Create project</button>
+                    <button onClick={createProject} class="btn btn-primary">Create project</button>
                 </div>
             </div>
         </form>
@@ -45,8 +48,8 @@ function Input() {
 
 function NewProject () {
     return(
-    <div className="table-container">
-      <div className="tableTitle">
+    <div className="content-container">
+      <div className="content-title">
         <h1>Add new project</h1>
       </div>
       <Input/>

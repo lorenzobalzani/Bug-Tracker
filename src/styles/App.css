@@ -61,10 +61,6 @@ a > svg {
   padding-bottom: 3px;
 }
 
-#nav > svg {
-  float: right;
-}
-
 #nav > h1 {
   font-size: 20px;
   margin-bottom: 0;
@@ -80,12 +76,12 @@ a > svg {
   vertical-align: middle;
 }
 
-.table-container {
+.content-container {
   width: 90%;
   padding-left: 10%;
 }
 
-.table-container > .tableTitle {
+.content-container > .content-title {
   height: auto;
   border-radius: 8px;
   color: white;
@@ -98,15 +94,16 @@ a > svg {
   margin-bottom: 20px;
 }
 
-.tableTitle > h1 {
-  font-size: 25px;
-}
-
-.tableTitle > h2 {
-  font-size: 18px;
-}
-
-.table-container > .btn {
+.content-container > .btn {
   margin-top: 20px;
   text-align: center;
 }
+
+.content-title > h1 {
+  font-size: 25px;
+}
+
+.content-title > h2 {
+  font-size: 18px;
+}
+

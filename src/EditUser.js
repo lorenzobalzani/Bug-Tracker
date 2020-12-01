@@ -11,8 +11,8 @@ import { Button } from 'reactstrap';
 
 function EditUser () {
     return(
-    <div className="table-container">
-      <div className="tableTitle">
+    <div className="content-container">
+      <div className="content-title">
         <h1>Edit users</h1>
         <h2>You can see user details, edit or remove it!</h2>
       </div>
