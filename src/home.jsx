@@ -1,5 +1,4 @@
-import './App.css';
-import { useAuth0 } from "@auth0/auth0-react";
+import './styles/App.css';
 import React, { useState } from "react";
 import {
   BrowserRouter as Router,
@@ -11,7 +10,6 @@ import { Button, Nav, NavItem, Dropdown, DropdownItem, DropdownToggle, DropdownM
 
 function Home () {
     return(<>
-    
     </>);
 }
 

@@ -1,5 +1,4 @@
-import './App.css';
-import { useAuth0 } from "@auth0/auth0-react";
+import './styles/App.css';
 import React, { useState } from "react";
 import {
   BrowserRouter as Router,
@@ -9,8 +8,9 @@ import {
   browserHistory
 } from "react-router-dom";
 import EditUser from './EditUser.js';
-import Home from './home.jsx';
+import Home from './Home.jsx';
 import MyProjects from './MyProjects.jsx';
+import NewProject from './NewProject';
 
 function LeftBar() {
   return (
@@ -48,6 +48,7 @@ function NavBar(){
         <Switch>
             <Route exact path ="/" component = {Home}/>
             <Route path="/editUser" component = {EditUser}/>
+            <Route exact path="/myProjects/newProject" component = {NewProject}/>
             <Route path="/myProjects" component = {MyProjects}/>
         </Switch>
       </div>

@@ -1,8 +1,8 @@
 import React from 'react';
 import {withRouter} from 'react-router';
 import {Route} from 'react-router-dom';
-import './App.css';
-import BugTracker from './bugtracker';
+import './styles/App.css';
+import BugTracker from './BugTracker';
 
 function App() {
   return (
