@@ -10,7 +10,9 @@ import {
 import { Button, Nav, NavItem, Dropdown, DropdownItem, DropdownToggle, DropdownMenu, NavLink, Row, Col, Container } from 'reactstrap';
 
 function Home () {
-    return(<></>);
+    return(<>
+    
+    </>);
 }
 
 export default Home;
