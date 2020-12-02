@@ -21,7 +21,6 @@ li {
   width: 100%;
 }
 
-
 .buttonNav {
   background-color: white !important;
   color: grey !important;
@@ -55,7 +54,7 @@ li {
   box-shadow: 1px 2px 10px rgba(0,0,0,.5);
 }
 
-a > svg {
+#leftColumn a > svg {
   margin-right: 20px;
   padding: 0;
   padding-bottom: 3px;
@@ -103,7 +102,16 @@ a > svg {
   font-size: 25px;
 }
 
+.rightColumn {
+  display: block !important;
+  overflow: auto !important;
+}
+
 .content-title > h2 {
   font-size: 18px;
 }
 
+#content {
+  display: block !important;
+  overflow: scroll !important;
+}

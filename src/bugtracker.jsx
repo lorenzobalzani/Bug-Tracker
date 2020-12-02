@@ -14,7 +14,7 @@ import NewProject from './NewProject';
 
 function LeftBar() {
   return (
-    <div id="leftColumn" className="col-xs-4 col-sm-4 col-md-3 d-flex justify-content-center">
+    <div id="leftColumn" className="col-xs-12 col-sm-12 col-md-3 d-flex justify-content-center">
       <ul>
       <li>
         <Link to="/" className="buttonNav py-3 btn btn-block"><svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-house" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -41,7 +41,7 @@ function LeftBar() {
 
 function NavBar(props){
   return(<div>
-      <div id="nav" className="row align-items-center">
+      <div id="nav" className="maxHeight row align-items-center">
           <h1>Logged in as Lorenzo Balzani</h1>
       </div>
       <div id="content" className="row">
@@ -64,7 +64,7 @@ export default class BugTracker extends React.Component {
           <Router history={history}>
             <div className="row">
               <LeftBar/>
-              <div className="col-xs-8 col-sm-8 col-md-9"> <NavBar history={history}/> </div>
+              <div id="rightColumn" className="col-xs-12 col-sm-12 col-md-9 h-100"> <NavBar history={history}/> </div>
             </div>
           </Router>
           </div>
