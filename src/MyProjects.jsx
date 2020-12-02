@@ -16,6 +16,7 @@ export default class MyProjects extends React.Component {
     this.unsubscribe = null;
     this.ref = firebase.firestore().collection('projects');
     this.headTitle = ["Project Name", "Project Description", "Project manager"];
+    this.columns = ["projectName", "projectDescription"];
     this.state = {
       projects: []
     };
@@ -49,7 +50,7 @@ export default class MyProjects extends React.Component {
           <h1>Edit projects</h1>
           <h2>You can see projects details, edit or remove it!</h2>
         </div>
-          <Table data={this.state.projects} head={this.headTitle}/>
+          <Table data={this.state.projects} columns={this.columns} head={this.headTitle}/>
       </div>);
   }
 }

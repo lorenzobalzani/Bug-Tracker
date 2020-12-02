@@ -6,7 +6,7 @@ import {
   Route,
   Link,
 } from "react-router-dom";
-import EditUser from './EditUser.js';
+import EditUser from './Users.js';
 import Home from './Home.jsx';
 import { createBrowserHistory } from "history";
 import MyProjects from './MyProjects.jsx';

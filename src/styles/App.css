@@ -1,12 +1,4 @@
-/*.row {
-  text-align: center !important;
-}*/
-
-#leftColumns {
-  height: 100%;
-}
-
-body, html, #root, .App, .App div {
+body, html, #root, .App, .App div, #leftColumns {
   height: 100%;
 }
 
