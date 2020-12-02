@@ -1,7 +1,5 @@
 import React from 'react';
-import {withRouter} from 'react-router';
-import {Route} from 'react-router-dom';
-import './styles/App.css';
+import './Styles/App.css';
 import BugTracker from './BugTracker';
 
 function App() {
@@ -12,4 +10,4 @@ function App() {
   );
 }
 
-export default withRouter(App);
+export default App;

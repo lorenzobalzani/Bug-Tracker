@@ -1,20 +1,13 @@
-import './styles/App.css';
+import './Styles/App.css';
 
-import React, { useState } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import firebase from './Firebase';
+import React from "react";
+import { Link } from "react-router-dom";
 import Table from './Table'
+import axios from 'axios';
 
 export default class MyProjects extends React.Component {
   constructor(props) {
     super(props);
-    this.unsubscribe = null;
-    this.ref = firebase.firestore().collection('projects');
     this.headTitle = ["Project Name", "Project Description", "Project manager"];
     this.columns = ["projectName", "projectDescription"];
     this.state = {
@@ -22,24 +15,10 @@ export default class MyProjects extends React.Component {
     };
   }
 
-  onCollectionUpdate = (querySnapshot) => {
-    const projects = [];
-    querySnapshot.forEach((doc) => {
-      const { projectName, projectDescription } = doc.data();
-      projects.push({
-        key: doc.id,
-        doc, // DocumentSnapshot
-        projectName: projectName,
-        projectDescription: projectDescription
-      });
-    });
-    this.setState({
-      projects
-   });
-  }
-
   componentDidMount() {
-    this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
+    fetch('https://bug-tracker-server-balzani.herokuapp.com/getProjects')
+      .then((response) => response.json())
+      .then((data) => this.setState({projects: data}));
   }
 
   render() {

@@ -1,15 +1,15 @@
-import './styles/App.css';
-import React, { useState } from "react";
+import './Styles/App.css';
+import React from "react";
 import {
   Router,
   Switch,
   Route,
   Link,
 } from "react-router-dom";
-import EditUser from './Users.js';
-import Home from './Home.jsx';
+import EditUser from './Users';
+import Home from './Home';
 import { createBrowserHistory } from "history";
-import MyProjects from './MyProjects.jsx';
+import MyProjects from './MyProjects';
 import NewProject from './NewProject';
 
 function LeftBar() {

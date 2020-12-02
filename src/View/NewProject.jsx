@@ -1,45 +1,20 @@
-import './styles/App.css';
-import './styles/Form.css';
+import './Styles/App.css';
+import './Styles/Form.css';
 
 import React from "react";
-import {
-  Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import { Button, InputGroupText } from 'reactstrap';
-import firebase from './Firebase';
+import ProjectController from '../Controller/Project';
 
 
 class Input extends React.Component{ 
     constructor(props) {
         super(props);
         this.state = {projectName: "", projectDescription: "", projectManager: ""};
-        this.ref = firebase.firestore().collection('projects');
-        this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
+        this.projectController = new ProjectController();
     }
 
     createProject = (e) => {
         e.preventDefault();
         const { projectName, projectDescription, projectManager } = this.state;
-        const timestamp = firebase.firestore.Timestamp.fromDate(new Date());
-        this.ref.add({
-          projectName,
-          projectDescription,
-          projectManager,
-          timestamp
-        }).then((docRef) => {
-          this.setState({
-            projectName: '',
-            projectDescription: '',
-            projectManager: ''
-          });
-          this.props.history.push("/myProjects");
-        })
-        .catch((error) => {
-          console.error("Error adding document: ", error);
-        });
     }
 
     updateField = (e) => {

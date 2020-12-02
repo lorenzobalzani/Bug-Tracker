@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { DeleteIcon, EditIcon, PeopleIcon } from './styles/Icons';
+import { DeleteIcon, EditIcon, PeopleIcon } from './Styles/Icons';
 
 function Table(props) {
         return (<div className="table-responsive">
