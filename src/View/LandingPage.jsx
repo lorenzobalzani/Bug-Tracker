@@ -26,7 +26,7 @@ function LandingPage() {
 
   <footer class="mastfoot mt-auto">
     <div class="inner">
-      <p>By <a href="https://github.com/lorenzobalzani">Lorenzo Balzani</a>.</p>
+      <p>By <a href="https://github.com/lorenzobalzani">Lorenzo Balzani</a></p>
     </div>
   </footer>
   </div>

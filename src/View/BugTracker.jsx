@@ -49,9 +49,10 @@ function LeftBar() {
 }
 
 function NavBar(props){
+  const { user, isAuthenticated, isLoading } = useAuth0();
   return(<div>
       <div id="nav" className="maxHeight row align-items-center">
-          <h1>Logged in as Lorenzo Balzani</h1>
+          <h1>Logged in as {user.name}</h1>
       </div>
       <div id="content" className="row">
         <Switch>
