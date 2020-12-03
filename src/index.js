@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import LandingPage from './View/LandingPage';
+import App from './View/App';
 import 'bootstrap/dist/css/bootstrap.css';
 import Auth0ProviderWithHistory from './auth/Auth0Provider';
+import LandingPage from './View/LandingPage';
 
 ReactDOM.render(
   <BrowserRouter>
     <Auth0ProviderWithHistory>
-      <LandingPage/>
+      <App/>
     </Auth0ProviderWithHistory>
   </BrowserRouter>,
   document.getElementById('root')
