@@ -7,12 +7,11 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-
 import CallbackPage from './Callback'
 import { createBrowserHistory } from "history";
 import Auth from '../auth/Auth'
 
-function App(props) {
+function App() {
   const history = createBrowserHistory();
   return (
     <div className="App">
@@ -20,8 +19,7 @@ function App(props) {
           <Router history={history}>
             <Switch>
               <Route exact path="/" component={LandingPage}/>
-              <Route path="/dashboard" component={BugTracker}>
-              </Route>
+              <Route path="/dashboard" component={BugTracker}/>
               <Route path="/callback" component={CallbackPage}/>
             </Switch>
           </Router>

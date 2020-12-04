@@ -1,11 +1,14 @@
 import './Styles/App.css';
 
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useRouteMatch } from "react-router-dom";
 import Table from './Table'
 import ProjectController from "../Controller/Project.Controller";
-import {Redirect} from "react-router-dom"
-import {AuthConsumer} from "../auth/AuthContext";
+
+function ButtonNewProject() {
+  let { url } = useRouteMatch();
+  return (<Link Link to={`${url}/newProject`} className="btn btn-primary py-2">Create new project</Link>);
+}
 
 export default class MyProjects extends React.Component {
   constructor(props) {
@@ -31,23 +34,16 @@ export default class MyProjects extends React.Component {
   }
 
   render() {
+   
     return(
-      <AuthConsumer>
-    {({ authenticated }) =>
-      authenticated ? (
-        <Redirect to="/myProjects" />
-      ) : (
-        <div className="content-container">
-        <Link to="/myProjects/newProject" className="btn btn-primary py-2">Create new project</Link>
+      <div className="content-container">
+        <ButtonNewProject/>
         <div className="content-title">
           <h1>Edit projects</h1>
           <h2>You can see projects details, edit or remove it!</h2>
         </div>
           <Table data={this.state.projects} columns={this.columns} head={this.headTitle}/>
       </div>
-      )
-    }
-  </AuthConsumer>
       );
   }
 }

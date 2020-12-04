@@ -5,16 +5,16 @@ import {
   Switch,
   Route,
   Link,
-  Redirect
+  useParams,
+  useRouteMatch
 } from "react-router-dom";
-import EditUser from './Users';
 import Home from './Home';
 import MyProjects from './MyProjects';
 import NewProject from './NewProject';
 import {AuthConsumer} from "../auth/AuthContext";
-import { createBrowserHistory } from "history";
 
 function LeftBar() {
+  let { path, url } = useRouteMatch();
   return (
     <div id="leftColumn" className="col-xs-12 col-sm-12 col-md-3 d-flex justify-content-center">
       <ul>
@@ -27,7 +27,7 @@ function LeftBar() {
         <Link to="/editUser" className="buttonNav py-3 btn btn-block">  <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-people" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
         <path fillRule="evenodd" d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.978-1h7.956a.274.274 0 0 0 .014-.002l.008-.002c-.002-.264-.167-1.03-.76-1.72C13.688 10.629 12.718 10 11 10c-1.717 0-2.687.63-3.24 1.276-.593.69-.759 1.457-.76 1.72a1.05 1.05 0 0 0 .022.004zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816zM4.92 10c-1.668.02-2.615.64-3.16 1.276C1.163 11.97 1 12.739 1 13h3c0-1.045.323-2.086.92-3zM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/>
         </svg>Edit users</Link></li>
-      <li><Link to="/myProjects" className="buttonNav py-3 btn btn-block">
+      <li><Link to={`${url}/myProjects`} className="buttonNav py-3 btn btn-block">
         <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-kanban" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
         <path fillRule="evenodd" d="M13.5 1h-11a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm-11-1a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2h-11z"/>
         <path d="M6.5 3a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V3zm-4 0a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V3zm8 0a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V3z"/>
@@ -51,17 +51,17 @@ function LeftBar() {
 }
 
 function NavBar(){
+  let { path } = useRouteMatch();
   return(<div>
       <div id="nav" className="maxHeight row align-items-center">
           <h1>Logged in as Lorenzo Balzani</h1>
       </div>
       <div id="content" className="row">
-        <Switch>
-            <Route exact path ="/dashboard" component = {Home}/>
-            <Route path="/editUser" component = {EditUser}/>
-            <Route exact path="/myProjects/newProject" component = {NewProject}/>
-            <Route path="/myProjects" component = {MyProjects}/>
-        </Switch>
+      <Switch>
+        <Route exact path={path} component={Home}/>
+        <Route exact path={`${path}/myProjects`} component={MyProjects}/>
+        <Route path={`${path}/myProjects/newProject`} component={NewProject}/>
+      </Switch>
       </div>
   </div>
     )
