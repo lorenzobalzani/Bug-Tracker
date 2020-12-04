@@ -22,6 +22,7 @@ class Auth extends Component {
   };
 
   initiateLogin = () => {
+    console.log("Called method")
     auth.authorize();
   };
 
@@ -33,6 +34,9 @@ class Auth extends Component {
       },
       accessToken: ""
     });
+    window.location = "https://" + AUTH_CONFIG.domain + 
+                      "/v2/logout?returnTo=" + AUTH_CONFIG.callbackUrl + 
+                      "&client_id=" + AUTH_CONFIG.clientId;
   };
 
   handleAuthentication = () => {

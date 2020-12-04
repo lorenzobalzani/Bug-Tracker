@@ -1,10 +1,17 @@
 import React from 'react';
 import './Styles/LandingPage.css';
 import { AuthConsumer } from "../auth/AuthContext";
+import {
+  Switch,
+  Route,
+  Link,
+  useRouteMatch,
+  Redirect
+} from "react-router-dom";
 
 function LandingPage() {
   return (
-      <div id="landingPage" class="text-center cover-container d-flex h-100 p-3 mx-auto flex-column">
+  <div id="landingPage" class="text-center cover-container d-flex h-100 p-3 mx-auto flex-column">
       <header class="masthead mb-auto">
         <div class="inner">
           <h3 class="masthead-brand">Bug Tracker</h3>
@@ -34,9 +41,21 @@ function LandingPage() {
           <p>By <a href="https://github.com/lorenzobalzani">Lorenzo Balzani</a></p>
         </div>
       </footer>
-      </div>
+      </div>);
+}
 
+function HomePage() {
+  return (
+    <AuthConsumer>
+    {({ authenticated }) =>
+      authenticated ? (
+        <Redirect to="/dashboard"/>
+      ) : (
+        <LandingPage/>
+      )
+    }
+  </AuthConsumer>
   );
 }
 
-export default LandingPage;
+export default HomePage;

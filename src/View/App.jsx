@@ -1,7 +1,6 @@
 import React from 'react';
 import './Styles/App.css';
-import BugTracker from './BugTracker';
-import LandingPage from './LandingPage';
+import Dashboard from './Dashboard';
 import {
   Router,
   Switch,
@@ -10,6 +9,7 @@ import {
 import CallbackPage from './Callback'
 import { createBrowserHistory } from "history";
 import Auth from '../auth/Auth'
+import HomePage from './HomePage';
 
 function App() {
   const history = createBrowserHistory();
@@ -18,8 +18,8 @@ function App() {
       <Auth>
           <Router history={history}>
             <Switch>
-              <Route exact path="/" component={LandingPage}/>
-              <Route path="/dashboard" component={BugTracker}/>
+              <Route exact path="/" component={HomePage}/>
+              <Route path="/dashboard" component={Dashboard}/>
               <Route path="/callback" component={CallbackPage}/>
             </Switch>
           </Router>

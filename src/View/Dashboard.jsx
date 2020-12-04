@@ -1,20 +1,18 @@
 import './Styles/App.css';
 import React from "react";
 import {
-  Router,
   Switch,
   Route,
   Link,
-  useParams,
-  useRouteMatch
+  useRouteMatch,
+  Redirect
 } from "react-router-dom";
-import Home from './Home';
 import MyProjects from './MyProjects';
 import NewProject from './NewProject';
 import {AuthConsumer} from "../auth/AuthContext";
 
 function LeftBar() {
-  let { path, url } = useRouteMatch();
+  let { url } = useRouteMatch();
   return (
     <div id="leftColumn" className="col-xs-12 col-sm-12 col-md-3 d-flex justify-content-center">
       <ul>
@@ -50,15 +48,20 @@ function LeftBar() {
   );
 }
 
-function NavBar(){
+function NavBar(props){
   let { path } = useRouteMatch();
   return(<div>
+
+  <AuthConsumer>
+    {({ user }) => (
       <div id="nav" className="maxHeight row align-items-center">
-          <h1>Logged in as Lorenzo Balzani</h1>
+        <h1>Logged in as {user.email} - {user.role}</h1>
       </div>
+    )}
+  </AuthConsumer>
+      
       <div id="content" className="row">
       <Switch>
-        <Route exact path={path} component={Home}/>
         <Route exact path={`${path}/myProjects`} component={MyProjects}/>
         <Route path={`${path}/myProjects/newProject`} component={NewProject}/>
       </Switch>
@@ -67,15 +70,24 @@ function NavBar(){
     )
 }
 
-export default class BugTracker extends React.Component {
-    render() {
-        return (
-            <div className="container-fluid">
-              <div className="row">
-                <LeftBar/>
-                <div id="rightColumn" className="col-xs-12 col-sm-12 col-md-9 h-100"> <NavBar/> </div>
-              </div>
-            </div>
-         );
-    }
+function Dashboard() {
+
+  return (
+    <AuthConsumer>
+      {({ authenticated}) =>
+        authenticated ? (
+          <div className="container-fluid">
+          <div className="row">
+            <LeftBar/>
+            <div id="rightColumn" className="col-xs-12 col-sm-12 col-md-9 h-100"> <NavBar/> </div>
+          </div>
+        </div>
+        ) : (
+          <Redirect to="/" />
+        )
+      }
+    </AuthConsumer>
+  );
 }
+
+export default Dashboard;
