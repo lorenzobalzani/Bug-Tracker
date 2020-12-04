@@ -60,13 +60,13 @@ class Input extends React.Component{
     }
 }
 
-function NewProject (props) {
+function NewProject () {
     return(
     <div className="content-container">
       <div className="content-title">
         <h1>Add new project</h1>
       </div>
-      <Input history={props.history}/>
+      <Input/>
     </div>);
 }
 

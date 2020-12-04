@@ -1,13 +1,33 @@
 import React from 'react';
 import './Styles/App.css';
 import BugTracker from './BugTracker';
-import { useAuth0 } from "@auth0/auth0-react";
 import LandingPage from './LandingPage';
+import {
+  Router,
+  Switch,
+  Route
+} from "react-router-dom";
 
-function App() {
-  const { isAuthenticated } = useAuth0();
+import CallbackPage from './Callback'
+import { createBrowserHistory } from "history";
+import Auth from '../auth/Auth'
+
+function App(props) {
+  const history = createBrowserHistory();
   return (
-    isAuthenticated ?  <div className="App"><BugTracker/></div> : <div className="App"><LandingPage/></div>
+    <div className="App">
+      <Auth>
+          <Router history={history}>
+            <Switch>
+              <Route exact path="/" component={LandingPage}/>
+              <Route path="/dashboard" component={BugTracker}>
+              </Route>
+              <Route path="/callback" component={CallbackPage}/>
+            </Switch>
+          </Router>
+      </Auth>
+    </div>
+  
   );
 }
 
