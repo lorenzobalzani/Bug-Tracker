@@ -3,12 +3,16 @@ import '../Styles/Form.css';
 
 import React from "react";
 import TicketController from '../../Controller/Ticket.Controller';
+import {
+    useParams
+  } from "react-router-dom";
+  import history from '../history'
 
 
 class Input extends React.Component{ 
     constructor(props) {
         super(props);
-        this.state = {ticketName: "", ticketDescription: "", projectName: "Bug Tracker", 
+        this.state = {ticketName: "", ticketDescription: "", projectName: this.props.projectName, 
         developerEmail: "", type: "", priority: "", status: ""};
         this.ticketController = new TicketController();
     }
@@ -16,6 +20,7 @@ class Input extends React.Component{
     createTicket = (e) => {
         e.preventDefault();
         this.ticketController.createTicket(this.state);
+        history.push("/dashboard/myTickets")
     }
 
     updateField = (e) => {
@@ -80,12 +85,13 @@ class Input extends React.Component{
 }
 
 function NewTicket () {
+    let { projectName } = useParams();
     return(
     <div className="content-container">
       <div className="content-title">
         <h1>Add new ticket</h1>
       </div>
-      <Input/>
+      <Input projectName = {projectName}/>
     </div>);
 }
 

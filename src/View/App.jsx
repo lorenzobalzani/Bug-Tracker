@@ -7,12 +7,11 @@ import {
   Route
 } from "react-router-dom";
 import CallbackPage from './Callback'
-import { createBrowserHistory } from "history";
+import history from './history'
 import Auth from '../auth/Auth'
 import HomePage from './HomePage';
 
 function App() {
-  const history = createBrowserHistory();
   return (
     <div className="App">
       <Auth>

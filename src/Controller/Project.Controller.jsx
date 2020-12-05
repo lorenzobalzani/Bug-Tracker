@@ -9,6 +9,10 @@ export default class ProjectController {
     return http.get(`/projects/getProject/${id}`);
   }
 
+  getProjectsByProjectManager(projectManagerEmail) {
+    return http.get(`/projects/getProjectsByProjectManager/${projectManagerEmail}`);
+  }
+
   createProject(data) {
     return http.post("/projects/newProject", data);
   }
