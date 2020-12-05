@@ -13,8 +13,8 @@ function ButtonNewProject() {
 export default class MyProjects extends React.Component {
   constructor(props) {
     super(props);
-    this.headTitle = ["Project Name", "Project Description", "Project manager"];
-    this.columns = ["projectName", "projectDescription"];
+    this.headTitle = ["Project Name", "Project Description", "Project manager", "Actions"];
+    this.columns = ["projectName", "projectDescription", "projectManager"];
     this.projectController = new ProjectController();
     this.state = {
       projects: []

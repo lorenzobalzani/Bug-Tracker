@@ -8,18 +8,19 @@ import ProjectController from '../../Controller/Project.Controller';
 class Input extends React.Component{ 
     constructor(props) {
         super(props);
-        this.state = {projectName: "", projectDescription: "", projectManager: ""};
+        this.state = {projectName: "", projectDescription: "", projectManager: "balzanilo@gmail.com"};
         this.projectController = new ProjectController();
     }
 
     createProject = (e) => {
         e.preventDefault();
-        const { projectName, projectDescription, projectManager } = this.state;
+        this.projectController.createProject(this.state);
     }
 
     updateField = (e) => {
         const state = this.state;
         state[e.target.id] = e.target.value;
+        console.log(state);
         this.setState(state);
     }
 
@@ -44,9 +45,8 @@ class Input extends React.Component{
                     <label htmlFor="inputProjectDesc" className="col-sm-3 col-form-label">Project manager</label>
                     <div className="col-sm-9">
                         <select id="projectManager" onChange={this.updateField} 
-                        value={this.state.projectManager} className="form-control">
-                            <option>Lorenzo Balzani</option>
-                            <option>Gianluca Balzani</option>
+                        value={this.state.projectManager} id="projectManager" className="form-control">
+                            <option>balzanilo@gmail.com</option>
                          </select>
                     </div>
                 </div>
