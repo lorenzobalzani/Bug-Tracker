@@ -1,8 +1,8 @@
 import http from "./HttpConfig";
 
 export default class TicketController {
-  getTicketsByProjectName(projectName) {
-    return http.get(`/tickets/getTicketsByProjectName/${projectName}`);
+  getTicketsByProjectId(projectId) {
+    return http.get(`/tickets/getTicketsByProjectId/${projectId}`);
   }
 
   getTicketsByDeveloperEmail(developerEmail) {

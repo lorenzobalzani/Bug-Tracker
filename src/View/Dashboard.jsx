@@ -57,7 +57,7 @@ function NavBar(){
           <Route exact path={`${path}/myProjects`} component={MyProjects}/>
           <Route path={`${path}/myProjects/newProject`} component={NewProject}/>
           <Route exact path={`${path}/myTickets`} component={MyTickets}/>
-          <Route path={`${path}/myTickets/:projectName/newTicket`} component={NewTicket}/>
+          <Route path={`${path}/myTickets/:projectId/newTicket`} component={NewTicket}/>
         </Switch>
       </div>
     </div>

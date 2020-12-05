@@ -8,7 +8,7 @@ import ProjectController from '../../Controller/Project.Controller';
 
 function ButtonNewTicket(props) {
   let { url } = useRouteMatch();
-  return (<Link Link to={`${url}/${props.projectName}/newTicket`} className="btn btn-primary py-2">Create new ticket</Link>);
+  return props.projectId === "" ? <> </> : (<Link Link to={`${url}/${props.projectId}/newTicket`} className="btn btn-primary py-2">Create new ticket</Link>);
 }
 
 export default class MyTickets extends React.Component {
@@ -37,30 +37,36 @@ export default class MyTickets extends React.Component {
     });
   }
 
-  updateTickets(e) {
+  updateTickets = (e) => {
     this.setState({selectedProject: e.target.value})
-    this.ticketController.getTicketsByProjectName(e.target.value)
-    .then(response => {
+    if (e.target.value === "") {
       this.setState({
-        tickets: response.data
+        tickets: []
       });
-    })
-    .catch(e => {
-      console.log(e);
-    });
+    } else {
+      this.ticketController.getTicketsByProjectId(e.target.value)
+      .then(response => {
+        this.setState({
+          tickets: response.data
+        });
+      })
+      .catch(e => {
+        console.log(e);
+      });
+    }
   }
 
   render() {
     return(
       <div className="content-container">
         <select class="browser-default custom-select" id="selectProjectInput" value={this.state.selectedProject} 
-                onChange={(e) => this.updateTickets(e)}>
-                <option value="none">Select project</option>
+                onChange={this.updateTickets}>
+                <option value="">Select project</option>
           {this.state.projects.map((project) => (
-            <option value={project.projectName}>{project.projectName}</option>
+            <option value={project.id}>{project.projectName}</option>
           ))}
         </select>
-        <ButtonNewTicket projectName={this.state.selectedProject}/>
+        <ButtonNewTicket projectId={this.state.selectedProject}/>
         <div className="content-title">
           <h1>Edit tickets</h1>
           <h2>You can see tickets details, edit or remove it!</h2>
