@@ -1,8 +1,8 @@
-import './Styles/App.css';
-import './Styles/Form.css';
+import '../Styles/App.css';
+import '../Styles/Form.css';
 
 import React from "react";
-import ProjectController from '../Controller/Project.Controller';
+import ProjectController from '../../Controller/Project.Controller';
 
 
 class Input extends React.Component{ 

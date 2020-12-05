@@ -85,7 +85,7 @@ li {
   margin-bottom: 20px;
 }
 
-.content-container > .btn {
+.content-container > .btn, #selectProjectInput {
   margin-top: 20px;
   text-align: center;
 }
@@ -107,3 +107,4 @@ li {
   display: block !important;
   overflow: scroll !important;
 }
+

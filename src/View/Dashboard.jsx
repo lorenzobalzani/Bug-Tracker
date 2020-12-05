@@ -7,8 +7,10 @@ import {
   useRouteMatch,
   Redirect
 } from "react-router-dom";
-import MyProjects from './MyProjects';
-import NewProject from './NewProject';
+import MyProjects from './View.Projects/MyProjects';
+import NewProject from './View.Projects/NewProject';
+import MyTickets from './View.Tickets/MyTickets';
+import NewTicket from './View.Tickets/NewTicket';
 import {AuthConsumer} from "../auth/AuthContext";
 import { PeopleIcon, ListIcon, ProjectsIcon, LogOutIcon, HomeIcon } from './Styles/Icons';
 
@@ -25,7 +27,7 @@ function LeftBar() {
         <Link to={`${url}/myProjects`} className="buttonNav py-3 btn btn-block"><ProjectsIcon/>My projects</Link>
       </li>
       <li>
-        <Link to="#" className="buttonNav py-3 btn btn-block"><ListIcon/>My tickets</Link>
+        <Link to={`${url}/myTickets`} className="buttonNav py-3 btn btn-block"><ListIcon/>My tickets</Link>
       </li>
         <AuthConsumer>
           {({ logout }) => (
@@ -39,7 +41,7 @@ function LeftBar() {
   );
 }
 
-function NavBar(props){
+function NavBar(){
   let { path } = useRouteMatch();
   return(
     <div>
@@ -54,6 +56,8 @@ function NavBar(props){
         <Switch>
           <Route exact path={`${path}/myProjects`} component={MyProjects}/>
           <Route path={`${path}/myProjects/newProject`} component={NewProject}/>
+          <Route exact path={`${path}/myTickets`} component={MyTickets}/>
+          <Route path={`${path}/myTickets/newTicket`} component={NewTicket}/>
         </Switch>
       </div>
     </div>

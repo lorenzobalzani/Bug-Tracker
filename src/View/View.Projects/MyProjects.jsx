@@ -1,9 +1,9 @@
-import './Styles/App.css';
+import '../Styles/App.css';
 
 import React from "react";
 import { Link, useRouteMatch } from "react-router-dom";
-import Table from './Table'
-import ProjectController from "../Controller/Project.Controller";
+import Table from '../Table'
+import ProjectController from "../../Controller/Project.Controller";
 
 function ButtonNewProject() {
   let { url } = useRouteMatch();
