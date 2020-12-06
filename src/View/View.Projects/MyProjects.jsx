@@ -4,6 +4,7 @@ import React from "react";
 import { Link, useRouteMatch } from "react-router-dom";
 import Table from '../Table'
 import ProjectController from "../../Controller/Project.Controller";
+import { Modal } from 'reactstrap';
 
 function ButtonNewProject() {
   let { url } = useRouteMatch();
@@ -33,6 +34,10 @@ export default class MyProjects extends React.Component {
       });
   }
 
+  deleteProjectById = (id) => {
+    this.projectController.deleteProjectById(id);
+  }
+
   render() {
     return(
       <div className="content-container">
@@ -41,7 +46,8 @@ export default class MyProjects extends React.Component {
           <h1>Edit projects</h1>
           <h2>You can see projects details, edit or remove it!</h2>
         </div>
-          <Table data={this.state.projects} columns={this.columns} head={this.headTitle}/>
+          <Table delete={this.deleteProjectById} data={this.state.projects} 
+          columns={this.columns} head={this.headTitle}/>
       </div>
       );
   }

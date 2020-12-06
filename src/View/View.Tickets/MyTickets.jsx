@@ -7,8 +7,8 @@ import TicketController from "../../Controller/Ticket.Controller";
 import ProjectController from '../../Controller/Project.Controller';
 
 function ButtonNewTicket(props) {
-  let { url } = useRouteMatch();
-  return props.projectId === "" ? <> </> : (<Link Link to={`${url}/${props.projectId}/newTicket`} className="btn btn-primary py-2">Create new ticket</Link>);
+  let { path } = useRouteMatch();
+  return props.projectId === "" ? <> </> : (<Link Link to={`${path}/${props.projectId}/newTicket`} className="btn btn-primary py-2">Create new ticket</Link>);
 }
 
 export default class MyTickets extends React.Component {

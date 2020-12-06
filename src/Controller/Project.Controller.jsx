@@ -22,7 +22,7 @@ export default class ProjectController {
   }
 
   deleteProjectById(id) {
-    return http.delete(`/projects/deleteProject${id}`);
+    return http.delete(`/projects/deleteProject/${id}`);
   }
 
   deleteAllProjects() {
