@@ -4,6 +4,7 @@ import React from "react";
 import { Link, useRouteMatch } from "react-router-dom";
 import Table from '../Table'
 import ProjectController from "../../Controller/Project.Controller";
+import TicketController from "../../Controller/Ticket.Controller";
 
 function ButtonNewProject() {
   let { url } = useRouteMatch();
@@ -16,6 +17,7 @@ export default class MyProjects extends React.Component {
     this.headTitle = ["Project Name", "Project Description", "Project manager", "Actions"];
     this.columns = ["projectName", "projectDescription", "projectManager"];
     this.projectController = new ProjectController();
+    this.ticketController = new TicketController();
     this.state = {
       projects: []
     };
@@ -35,6 +37,7 @@ export default class MyProjects extends React.Component {
 
   deleteProjectById = (id) => {
     this.projectController.deleteProjectById(id);
+    this.ticketController.deleteTicketsByProjectId(id);
   }
 
   render() {

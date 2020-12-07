@@ -16,4 +16,8 @@ export default class TicketController {
   deleteTicketById(id) {
     return http.delete(`/tickets/deleteTicket/${id}`);
   }
+
+  deleteTicketsByProjectId(projectId) {
+    return http.delete(`/tickets/deleteByProjectId/${projectId}`);
+  }
 }

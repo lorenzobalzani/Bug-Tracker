@@ -19,7 +19,7 @@ function Table(props) {
             setModal(!modal);
             props.delete(id);
         }
-
+        
         return (<div className="table-responsive">
         <table class="table table-striped table-bordered table-sm table-hover table-light" cellspacing="0"
         width="100%">
