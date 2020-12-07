@@ -19,7 +19,7 @@ function Table(props) {
             setModal(!modal);
             props.delete(id);
         }
-        
+
         return (<div className="table-responsive">
         <table class="table table-striped table-bordered table-sm table-hover table-light" cellspacing="0"
         width="100%">
@@ -53,7 +53,7 @@ function Table(props) {
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Delete confirm</ModalHeader>
         <ModalBody>
-         Are you sure to delete this item?
+        {props.modalText}
         </ModalBody>
         <ModalFooter>
           <Button color="danger" onClick={handleDelete}>Delete</Button>

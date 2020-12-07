@@ -77,7 +77,8 @@ export default class MyTickets extends React.Component {
           <h1>Edit tickets</h1>
           <h2>You can see tickets details, edit or remove it!</h2>
         </div>
-          <Table delete={this.deleteTicketById} 
+          <Table modalText={"Are you sure to delete this ticket?"} 
+          delete={this.deleteTicketById} 
           data={this.state.tickets} columns={this.columns} head={this.headTitle}/>
       </div>
       );

@@ -3,6 +3,7 @@ import '../Styles/Form.css';
 
 import React from "react";
 import ProjectController from '../../Controller/Project.Controller';
+import history from '../history'
 
 
 class Input extends React.Component{ 
@@ -15,6 +16,7 @@ class Input extends React.Component{
     createProject = (e) => {
         e.preventDefault();
         this.projectController.createProject(this.state);
+        history.push("/dashboard/myTickets")
     }
 
     updateField = (e) => {

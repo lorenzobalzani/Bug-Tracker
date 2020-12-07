@@ -48,7 +48,8 @@ export default class MyProjects extends React.Component {
           <h1>Edit projects</h1>
           <h2>You can see projects details, edit or remove it!</h2>
         </div>
-          <Table delete={this.deleteProjectById} data={this.state.projects} 
+          <Table modalText={"Are you sure to delete this project? All tickets related to it will be removed as well"} 
+          delete={this.deleteProjectById} data={this.state.projects} 
           columns={this.columns} head={this.headTitle}/>
       </div>
       );
