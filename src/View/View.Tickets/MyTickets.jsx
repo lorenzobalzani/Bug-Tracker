@@ -37,14 +37,21 @@ export default class MyTickets extends React.Component {
     });
   }
 
-  updateTickets = (e) => {
-    this.setState({selectedProject: e.target.value})
+  deleteTicketById = (id) => {
+    this.ticketController.deleteTicketById(id);
+    this.updateTickets();
+  }
+
+  updateSelectedProject = (e) => {
     if (e.target.value === "") {
-      this.setState({
-        tickets: []
-      });
+      this.setState({tickets: []})
     } else {
-      this.ticketController.getTicketsByProjectId(e.target.value)
+      this.setState({selectedProject: e.target.value}, () => this.updateTickets());
+    }
+  }
+
+  updateTickets() {
+   this.ticketController.getTicketsByProjectId(this.state.selectedProject)
       .then(response => {
         this.setState({
           tickets: response.data
@@ -53,14 +60,13 @@ export default class MyTickets extends React.Component {
       .catch(e => {
         console.log(e);
       });
-    }
   }
 
   render() {
     return(
       <div className="content-container">
         <select class="browser-default custom-select" id="selectProjectInput" value={this.state.selectedProject} 
-                onChange={this.updateTickets}>
+                onChange={this.updateSelectedProject}>
                 <option value="">Select project</option>
           {this.state.projects.map((project) => (
             <option value={project.id}>{project.projectName}</option>
@@ -71,7 +77,8 @@ export default class MyTickets extends React.Component {
           <h1>Edit tickets</h1>
           <h2>You can see tickets details, edit or remove it!</h2>
         </div>
-          <Table data={this.state.tickets} columns={this.columns} head={this.headTitle}/>
+          <Table delete={this.deleteTicketById} 
+          data={this.state.tickets} columns={this.columns} head={this.headTitle}/>
       </div>
       );
   }

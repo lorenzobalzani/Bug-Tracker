@@ -12,4 +12,8 @@ export default class TicketController {
   createTicket(data) {
     return http.post("/tickets/newTicket", data);
   }
+
+  deleteTicketById(id) {
+    return http.delete(`/tickets/deleteTicket/${id}`);
+  }
 }
