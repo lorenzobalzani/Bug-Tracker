@@ -11,6 +11,7 @@ import MyProjects from './View.Projects/MyProjects';
 import NewProject from './View.Projects/NewProject';
 import MyTickets from './View.Tickets/MyTickets';
 import NewTicket from './View.Tickets/NewTicket';
+import Users from './Users';
 import {AuthConsumer} from "../auth/AuthContext";
 import { PeopleIcon, ListIcon, ProjectsIcon, LogOutIcon, HomeIcon } from './Styles/Icons';
 
@@ -22,7 +23,7 @@ function LeftBar() {
       <li>
         <Link to="/" className="buttonNav py-3 btn btn-block"><HomeIcon/>Home</Link></li>
       <li>
-        <Link to="/editUser" className="buttonNav py-3 btn btn-block"><PeopleIcon/>Edit users</Link></li>
+        <Link to={`${url}/users`} className="buttonNav py-3 btn btn-block"><PeopleIcon/>Edit users</Link></li>
       <li>
         <Link to={`${url}/myProjects`} className="buttonNav py-3 btn btn-block"><ProjectsIcon/>My projects</Link>
       </li>
@@ -58,6 +59,7 @@ function NavBar(){
           <Route path={`${path}/myProjects/newProject`} component={NewProject}/>
           <Route exact path={`${path}/myTickets`} component={MyTickets}/>
           <Route path={`${path}/myTickets/:projectId/newTicket`} component={NewTicket}/>
+          <Route path={`${path}/users`} component={Users}/>
         </Switch>
       </div>
     </div>
