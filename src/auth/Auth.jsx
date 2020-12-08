@@ -8,7 +8,7 @@ const auth = new auth0.WebAuth({
   domain: AUTH_CONFIG.domain,
   clientID: AUTH_CONFIG.clientId,
   redirectUri: AUTH_CONFIG.callbackUrl,
-  audience: `https://${AUTH_CONFIG.domain}/userinfo`,
+  audience: `https://${AUTH_CONFIG.domain}/api/v2/`,
   responseType: "token id_token"
 });
 
@@ -22,7 +22,6 @@ class Auth extends Component {
   };
 
   initiateLogin = () => {
-    console.log("Called method")
     auth.authorize();
   };
 

@@ -11,9 +11,10 @@ import MyProjects from './View.Projects/MyProjects';
 import NewProject from './View.Projects/NewProject';
 import MyTickets from './View.Tickets/MyTickets';
 import NewTicket from './View.Tickets/NewTicket';
-import Users from './Users';
+import Users from './View.Users/Users';
 import {AuthConsumer} from "../auth/AuthContext";
-import { PeopleIcon, ListIcon, ProjectsIcon, LogOutIcon, HomeIcon } from './Styles/Icons';
+import { PeopleIcon, ListIcon, ProjectsIcon, LogOutIcon, HomeIcon, ProfileIcon } from './Styles/Icons';
+import ChangeUserDetails from './View.Users/ChangeUserDetails'
 
 function LeftBar() {
   let { url } = useRouteMatch();
@@ -21,14 +22,17 @@ function LeftBar() {
     <div id="leftColumn" className="col-xs-12 col-sm-12 col-md-3 d-flex justify-content-center">
       <ul>
       <li>
-        <Link to="/" className="buttonNav py-3 btn btn-block"><HomeIcon/>Home</Link></li>
+        <Link to="/" className="buttonNav py-3 btn btn-block"><HomeIcon/>Dashboard</Link></li>
       <li>
-        <Link to={`${url}/users`} className="buttonNav py-3 btn btn-block"><PeopleIcon/>Edit users</Link></li>
+        <Link to={`${url}/users`} className="buttonNav py-3 btn btn-block"><PeopleIcon/>App's users (ADMIN)</Link></li>
       <li>
-        <Link to={`${url}/myProjects`} className="buttonNav py-3 btn btn-block"><ProjectsIcon/>My projects</Link>
+        <Link to={`${url}/myProjects`} className="buttonNav py-3 btn btn-block"><ProjectsIcon/>My projects (ADMIN & PM)</Link>
       </li>
       <li>
-        <Link to={`${url}/myTickets`} className="buttonNav py-3 btn btn-block"><ListIcon/>My tickets</Link>
+        <Link to={`${url}/myTickets`} className="buttonNav py-3 btn btn-block"><ListIcon/>My tickets (DEVELOPER)</Link>
+      </li>
+      <li>
+        <Link to={`${url}/myProfile`} className="buttonNav py-3 btn btn-block"><ProfileIcon/>My profile (ALL)</Link>
       </li>
         <AuthConsumer>
           {({ logout }) => (
@@ -49,7 +53,7 @@ function NavBar(){
       <AuthConsumer>
         {({ user }) => (
           <div id="nav" className="maxHeight row align-items-center">
-            <h1>Logged in as {user.email} - {user.role}</h1>
+            <h1>Logged in as {user.email}</h1>
           </div>
         )}
       </AuthConsumer>
@@ -59,7 +63,8 @@ function NavBar(){
           <Route path={`${path}/myProjects/newProject`} component={NewProject}/>
           <Route exact path={`${path}/myTickets`} component={MyTickets}/>
           <Route path={`${path}/myTickets/:projectId/newTicket`} component={NewTicket}/>
-          <Route path={`${path}/users`} component={Users}/>
+          <Route exact path={`${path}/users`} component={Users}/>
+          <Route path={`${path}/users/:userId/edit`} component={ChangeUserDetails}/>
         </Switch>
       </div>
     </div>

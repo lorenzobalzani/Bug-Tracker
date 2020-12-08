@@ -21,7 +21,7 @@ function Table(props) {
         }
 
         return (<div className="table-responsive">
-        <table class="table table-striped table-bordered table-sm table-hover table-light" cellspacing="0"
+        <table className="table table-striped table-bordered table-sm table-hover table-light" cellSpacing="0"
         width="100%">
         <thead>
             {props.head.map(headTitle => 

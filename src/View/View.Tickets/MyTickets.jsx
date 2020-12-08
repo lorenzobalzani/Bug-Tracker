@@ -65,7 +65,7 @@ export default class MyTickets extends React.Component {
   render() {
     return(
       <div className="content-container">
-        <select class="browser-default custom-select" id="selectProjectInput" value={this.state.selectedProject} 
+        <select className="browser-default custom-select" id="selectProjectInput" value={this.state.selectedProject} 
                 onChange={this.updateSelectedProject}>
                 <option value="">Select project</option>
           {this.state.projects.map((project) => (

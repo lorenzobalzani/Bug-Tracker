@@ -8,7 +8,7 @@ import TicketController from "../../Controller/Ticket.Controller";
 
 function ButtonNewProject() {
   let { url } = useRouteMatch();
-  return (<Link Link to={`${url}/newProject`} className="btn btn-primary py-2">Create new project</Link>);
+  return (<Link to={`${url}/newProject`} className="btn btn-primary py-2">Create new project</Link>);
 }
 
 export default class MyProjects extends React.Component {
