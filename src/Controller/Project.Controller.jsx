@@ -1,7 +1,7 @@
 import http from "./HttpConfig";
 
 export default class ProjectController {
-  constructor(accessToken) {
+  setAccessToken(accessToken) {
     this.accessToken = accessToken;
   }
 

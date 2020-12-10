@@ -17,7 +17,8 @@ function App() {
           domain="balzanilo.eu.auth0.com"
           clientId="tyffmLPmLw90LohrxChAf7no9dfJyNUz"
           redirectUri="http://localhost:3000/dashboard"
-          audiance="https://bugtracker-api">
+          audience="https://bugtracker-api"
+          scope="read:allProjects">
           <Router history={history}>
             <Switch>
               <Route exact path="/" component={HomePage}/>

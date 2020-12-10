@@ -5,6 +5,7 @@ import { Link, useRouteMatch } from "react-router-dom";
 import Table from '../Table'
 import ProjectController from "../../Controller/Project.Controller";
 import TicketController from "../../Controller/Ticket.Controller";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function ButtonNewProject() {
   let { url } = useRouteMatch();
@@ -18,17 +19,31 @@ function MyProjects () {
   const projectController = new ProjectController();
   const ticketController = new TicketController();
   let [projects, setProjects] = useState([]);
+  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
   
-
   useEffect(() => {
-    projectController.getProjects()
-    .then(response => {
-      setProjects(response.data)
-    })
-    .catch(e => {
-      console.log(e);
-    });
-  });
+    const getProjects = async () => {
+     try {
+        const token = await getAccessTokenSilently({
+          audience: "https://bugtracker-api",
+          scope: "read:allProjects"
+        });
+        console.log(token)
+        projectController.setAccessToken(token);
+        projectController.getProjects()
+          .then(response => {
+            setProjects(response.data)
+          })
+          .catch(e => {
+            console.log(e);
+          });
+      } catch (e) {
+        console.log(e.message);
+      }
+    };
+  
+    getProjects();
+  }, []);
 
   const deleteProjectById = (id) => {
     projectController.deleteProjectById(id);

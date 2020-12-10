@@ -1,8 +1,6 @@
 import React from 'react';
 import './Styles/LandingPage.css';
-import { AuthConsumer } from "../auth/AuthContext";
 import { useAuth0 } from "@auth0/auth0-react";
-import {Redirect} from "react-router-dom";
 
 function LandingPage() {
   const { loginWithRedirect } = useAuth0();
@@ -37,17 +35,7 @@ function LandingPage() {
 }
 
 function HomePage() {
-  return (
-    <AuthConsumer>
-    {({ authenticated }) =>
-      authenticated ? (
-        <Redirect to="/dashboard"/>
-      ) : (
-        <LandingPage/>
-      )
-    }
-  </AuthConsumer>
-  );
+  return (<LandingPage/>);
 }
 
 export default HomePage;
