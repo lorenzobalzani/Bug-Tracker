@@ -6,23 +6,24 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import CallbackPage from './Callback'
 import history from './history'
-import Auth from '../auth/Auth'
+import { Auth0Provider } from "@auth0/auth0-react";
 import HomePage from './HomePage';
 
 function App() {
   return (
     <div className="App">
-      <Auth>
+      <Auth0Provider
+          domain="balzanilo.eu.auth0.com"
+          clientId="tyffmLPmLw90LohrxChAf7no9dfJyNUz"
+          redirectUri="http://localhost:3000/dashboard">
           <Router history={history}>
             <Switch>
               <Route exact path="/" component={HomePage}/>
               <Route path="/dashboard" component={Dashboard}/>
-              <Route path="/callback" component={CallbackPage}/>
             </Switch>
           </Router>
-      </Auth>
+      </Auth0Provider>
     </div>
   
   );

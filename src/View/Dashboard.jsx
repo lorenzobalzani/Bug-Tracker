@@ -5,19 +5,19 @@ import {
   Route,
   Link,
   useRouteMatch,
-  Redirect
 } from "react-router-dom";
 import MyProjects from './View.Projects/MyProjects';
 import NewProject from './View.Projects/NewProject';
 import MyTickets from './View.Tickets/MyTickets';
 import NewTicket from './View.Tickets/NewTicket';
 import Users from './View.Users/Users';
-import {AuthConsumer} from "../auth/AuthContext";
 import { PeopleIcon, ListIcon, ProjectsIcon, LogOutIcon, HomeIcon, ProfileIcon } from './Styles/Icons';
 import ChangeUserDetails from './View.Users/ChangeUserDetails'
+import {withAuthenticationRequired, useAuth0} from '@auth0/auth0-react'
 
 function LeftBar() {
   let { url } = useRouteMatch();
+  const { logout } = useAuth0();
   return (
     <div id="leftColumn" className="col-xs-12 col-sm-12 col-md-3 d-flex justify-content-center">
       <ul>
@@ -34,13 +34,9 @@ function LeftBar() {
       <li>
         <Link to={`${url}/myProfile`} className="buttonNav py-3 btn btn-block"><ProfileIcon/>My profile (ALL)</Link>
       </li>
-        <AuthConsumer>
-          {({ logout }) => (
-          <li>
-            <a className="buttonNav py-3 btn btn-block" onClick={logout}> <LogOutIcon/>Logout</a>
-          </li>
-          )}
-        </AuthConsumer>
+      <li>
+        <a className="buttonNav py-3 btn btn-block" onClick={() => logout({ returnTo: window.location.origin })}> <LogOutIcon/>Logout</a>
+      </li>
       </ul>
     </div>
   );
@@ -48,15 +44,12 @@ function LeftBar() {
 
 function NavBar(){
   let { path } = useRouteMatch();
+  const { user } = useAuth0();
   return(
     <div>
-      <AuthConsumer>
-        {({ user }) => (
-          <div id="nav" className="maxHeight row align-items-center">
-            <h1>Logged in as {user.email}</h1>
-          </div>
-        )}
-      </AuthConsumer>
+      <div id="nav" className="maxHeight row align-items-center">
+        <h1>Logged in as {user.email}</h1>
+      </div>  
       <div id="content" className="row">
         <Switch>
           <Route exact path={`${path}/myProjects`} component={MyProjects}/>
@@ -71,24 +64,29 @@ function NavBar(){
   )
 }
 
-function Dashboard() {
+function BugTracker() {
+  return(
+  <div className="container-fluid">
+    <div className="row">
+      <LeftBar/>
+      <div id="rightColumn" className="col-xs-12 col-sm-12 col-md-9 h-100">
+        <NavBar/>
+      </div>
+    </div>
+  </div>);
+}
 
-  return (
-    <AuthConsumer>
-      {({ authenticated}) =>
-        authenticated ? (
-          <div className="container-fluid">
-          <div className="row">
-            <LeftBar/>
-            <div id="rightColumn" className="col-xs-12 col-sm-12 col-md-9 h-100"> <NavBar/> </div>
-          </div>
-        </div>
-        ) : (
-          <Redirect to="/" />
-        )
-      }
-    </AuthConsumer>
-  );
+const ProtectedRoute = ({ component, ...args }) => (
+  <Route
+    component={withAuthenticationRequired(component, {
+      onRedirecting: () => <>Loading...</>,
+    })}
+    {...args}
+  />
+);
+
+function Dashboard() {
+  return (<ProtectedRoute path="/dashboard" component={BugTracker}/>);
 }
 
 export default Dashboard;

@@ -1,9 +1,11 @@
 import React from 'react';
 import './Styles/LandingPage.css';
 import { AuthConsumer } from "../auth/AuthContext";
+import { useAuth0 } from "@auth0/auth0-react";
 import {Redirect} from "react-router-dom";
 
 function LandingPage() {
+  const { loginWithRedirect } = useAuth0();
   return (
   <div id="landingPage" className="text-center cover-container d-flex h-100 p-3 mx-auto flex-column">
       <header className="masthead mb-auto">
@@ -21,13 +23,9 @@ function LandingPage() {
         <h1 className="cover-heading">Bug Tracker</h1>
         <h2 className="cover-heading">Make software development easy</h2>
         <p className="lead">
-        <AuthConsumer>
-          {({ initiateLogin }) => (
-            <button className="btn btn-lg btn-secondary" onClick={initiateLogin}>
+            <button className="btn btn-lg btn-secondary" onClick={() => loginWithRedirect()}>
               Start now!
             </button>
-        )}
-        </AuthConsumer>
         </p>
       </main>
       <footer className="mastfoot mt-auto">
