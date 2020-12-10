@@ -16,7 +16,8 @@ function App() {
       <Auth0Provider
           domain="balzanilo.eu.auth0.com"
           clientId="tyffmLPmLw90LohrxChAf7no9dfJyNUz"
-          redirectUri="http://localhost:3000/dashboard">
+          redirectUri="http://localhost:3000/dashboard"
+          audiance="https://bugtracker-api">
           <Router history={history}>
             <Switch>
               <Route exact path="/" component={HomePage}/>
@@ -25,7 +26,6 @@ function App() {
           </Router>
       </Auth0Provider>
     </div>
-  
   );
 }
 

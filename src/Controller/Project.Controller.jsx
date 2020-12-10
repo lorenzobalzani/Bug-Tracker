@@ -1,8 +1,16 @@
 import http from "./HttpConfig";
 
 export default class ProjectController {
+  constructor(accessToken) {
+    this.accessToken = accessToken;
+  }
+
   getProjects() {
-    return http.get("/projects/getProjects");
+    return http.get("/projects/getProjects", {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      }
+    });
   }
 
   getProjectById(id) {
