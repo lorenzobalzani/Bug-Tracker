@@ -18,7 +18,7 @@ function App() {
           clientId="tyffmLPmLw90LohrxChAf7no9dfJyNUz"
           redirectUri="http://localhost:3000/dashboard"
           audience="https://bugtracker-api"
-          scope="read:allProjects">
+          scope="read:allProjects read:messages">
           <Router history={history}>
             <Switch>
               <Route exact path="/" component={HomePage}/>
