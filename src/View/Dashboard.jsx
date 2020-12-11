@@ -11,6 +11,7 @@ import NewProject from './View.Projects/NewProject';
 import MyTickets from './View.Tickets/MyTickets';
 import NewTicket from './View.Tickets/NewTicket';
 import Users from './View.Users/Users';
+import Loading from './Loading';
 import { PeopleIcon, ListIcon, ProjectsIcon, LogOutIcon, HomeIcon, ProfileIcon } from './Styles/Icons';
 import ChangeUserDetails from './View.Users/ChangeUserDetails'
 import {withAuthenticationRequired, useAuth0} from '@auth0/auth0-react'
@@ -79,7 +80,7 @@ function BugTracker() {
 const ProtectedRoute = ({ component, ...args }) => (
   <Route
     component={withAuthenticationRequired(component, {
-      onRedirecting: () => <>Loading...</>,
+      onRedirecting: () => <Loading/>,
     })}
     {...args}
   />

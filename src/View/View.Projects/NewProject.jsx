@@ -1,65 +1,85 @@
 import '../Styles/App.css';
 import '../Styles/Form.css';
-
-import React from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import React, { useState, useEffect } from "react";
 import ProjectController from '../../Controller/Project.Controller';
 import history from '../history'
 
+function Input() {
+    let [projectName, setProjectName] = useState("");
+    let [projectDescription, setProjectDescription] = useState("");
+    let [projectManager, setProjectManager] = useState("balzanilo@gmail.com");
+    const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+    const projectController = new ProjectController();
 
-class Input extends React.Component{ 
-    constructor(props) {
-        super(props);
-        this.state = {projectName: "", projectDescription: "", projectManager: "balzanilo@gmail.com"};
-        this.projectController = new ProjectController();
+    useEffect(() => {
+        const getToken = async () => {
+         try {
+            const token = await getAccessTokenSilently();
+            projectController.setAccessToken(token);
+          } catch (e) {
+            console.log(e.message);
+          }
+        };
+        getToken();
+    });
+
+    const updateField = (e) => {
+        switch (e.target.id) {
+            case "projectName":
+                setProjectName(e.target.value);
+            break;
+            case "projectDescription":
+                setProjectDescription(e.target.value);
+            break;
+            case "projectManager":
+                setProjectManager(e.target.value);
+            break;
+        }
     }
 
-    createProject = (e) => {
+    const createProject = (e) => {
         e.preventDefault();
-        this.projectController.createProject(this.state);
-        history.push("/dashboard/myTickets")
+        projectController.createProject({
+            projectName: projectName,
+            projectDescription: projectDescription,
+            projectManager: projectManager
+        });
+        history.push("/dashboard/myProjects")
     }
 
-    updateField = (e) => {
-        const state = this.state;
-        state[e.target.id] = e.target.value;
-        console.log(state);
-        this.setState(state);
-    }
-
-    render() {
-        return (<>
-            <form>
-                <div className="form-group row">
-                    <label htmlFor="inputProjectName" className="col-sm-2 col-form-label">Project name</label>
-                        <div className="col-sm-10">
-                            <input type="text" value={this.state.projectName} 
-                            onChange={this.updateField} className="form-control" id="projectName" placeholder="Project name"/>
-                        </div>
-                </div>
-                <div className="form-group row">
-                    <label htmlFor="inputProjectDesc" className="col-sm-3 col-form-label">Project description</label>
-                        <div className="col-sm-9">
-                            <input type="text" value={this.state.projectDescription}
-                             onChange={this.updateField} className="form-control" id="projectDescription" placeholder="Project description"/>
-                        </div>
-                </div>
-                <div className="form-group row">
-                    <label htmlFor="inputProjectDesc" className="col-sm-3 col-form-label">Project manager</label>
-                    <div className="col-sm-9">
-                        <select id="projectManager" onChange={this.updateField} 
-                        value={this.state.projectManager} id="projectManager" className="form-control">
-                            <option>balzanilo@gmail.com</option>
-                         </select>
-                    </div>
-                </div>
-                <div className="form-group row">
+    return (<>
+        <form>
+            <div className="form-group row">
+                <label htmlFor="inputProjectName" className="col-sm-2 col-form-label">Project name</label>
                     <div className="col-sm-10">
-                        <button type="submit" onClick={this.createProject} className="btn btn-primary">Create project</button>
+                        <input type="text" value={projectName} 
+                        onChange={updateField} className="form-control" id="projectName" placeholder="Project name"/>
                     </div>
+            </div>
+            <div className="form-group row">
+                <label htmlFor="inputProjectDesc" className="col-sm-3 col-form-label">Project description</label>
+                    <div className="col-sm-9">
+                        <input type="text" value={projectDescription}
+                         onChange={updateField} className="form-control" id="projectDescription" placeholder="Project description"/>
+                    </div>
+            </div>
+            <div className="form-group row">
+                <label htmlFor="inputProjectDesc" className="col-sm-3 col-form-label">Project manager</label>
+                <div className="col-sm-9">
+                    <select id="projectManager" onChange={updateField} 
+                    value={projectManager} id="projectManager" className="form-control">
+                        <option>balzanilo@gmail.com</option>
+                     </select>
                 </div>
-            </form>
-        </>);
-    }
+            </div>
+            <div className="form-group row">
+                <div className="col-sm-10">
+                    <button type="submit" onClick={createProject} className="btn btn-primary">Create project</button>
+                </div>
+            </div>
+        </form>
+    </>);
 }
 
 function NewProject () {

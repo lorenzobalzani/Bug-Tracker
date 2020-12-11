@@ -18,7 +18,8 @@ function App() {
           clientId="tyffmLPmLw90LohrxChAf7no9dfJyNUz"
           redirectUri="http://localhost:3000/dashboard"
           audience="https://bugtracker-api"
-          scope="read:allProjects read:messages">
+          //These are generic scopes
+          scope="read:allProjects read:tickets write:project">
           <Router history={history}>
             <Switch>
               <Route exact path="/" component={HomePage}/>

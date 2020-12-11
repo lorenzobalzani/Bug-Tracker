@@ -22,7 +22,11 @@ export default class ProjectController {
   }
 
   createProject(data) {
-    return http.post("/projects/newProject", data);
+    return http.post("/projects/newProject", data, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      }
+    });
   }
 
   updateProject(id, data) {

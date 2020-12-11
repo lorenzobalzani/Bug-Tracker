@@ -24,11 +24,7 @@ function MyProjects () {
   useEffect(() => {
     const getProjects = async () => {
      try {
-        const token = await getAccessTokenSilently({
-          audience: "https://bugtracker-api",
-          scope: "read:allProjects"
-        });
-        console.log(token)
+        const token = await getAccessTokenSilently();
         projectController.setAccessToken(token);
         projectController.getProjects()
           .then(response => {
