@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "https://bug-tracker-server-balzani.herokuapp.com/api/",
+  baseURL: "http://192.168.178.24:8080/api/",
   headers: {
     "Content-type": "application/json"
   }
