@@ -18,7 +18,8 @@ function App() {
           clientId="tyffmLPmLw90LohrxChAf7no9dfJyNUz"
           redirectUri="http://192.168.178.24:3000/dashboard"
           audience="https://bugtracker-api"
-          //These are all scopes that app could use in the future
+          /*These are all scopes that app could use in the future. After authentication user will have only own permissions, 
+          not for sure all listed below*/
           scope="read:allProjects read:tickets write:project">
           <Router history={history}>
             <Switch>
