@@ -24,18 +24,20 @@ function Table(props) {
         <table className="table table-striped table-bordered table-sm table-hover table-light" cellSpacing="0"
         width="100%">
         <thead>
-            {props.head.map(headTitle => 
-            <th className="align-middle">{headTitle}</th>
-            )}
+            <tr>
+                {props.head.map(headTitle => 
+                    <th key={headTitle} className="align-middle">{headTitle}</th>
+                )}
+            </tr>
         </thead>
         <tbody>
             {props.data.map(data =>
-                    <tr>
+                    <tr key={data}>
                         {props.columns.map(columnName => {
                             let value = data[columnName]
-                            return <td className="align-middle"> {value} </td>
+                            return <td key={columnName} className="align-middle"> {value} </td>
                         })}
-                    <td className="align-middle">
+                    <td key="actions" className="align-middle">
                     <Link to={`${path}/${data.id}/details`} className="btn btn-primary mr-2">
                         <PeopleIcon/>
                     </Link>
