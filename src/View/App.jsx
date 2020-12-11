@@ -16,7 +16,7 @@ function App() {
       <Auth0Provider
           domain="balzanilo.eu.auth0.com"
           clientId="tyffmLPmLw90LohrxChAf7no9dfJyNUz"
-          redirectUri="http://localhost:3000/dashboard"
+          redirectUri="http://192.168.178.24:3000/dashboard"
           audience="https://bugtracker-api"
           //These are all scopes that app could use in the future
           scope="read:allProjects read:tickets write:project">
