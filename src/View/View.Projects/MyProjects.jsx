@@ -13,7 +13,6 @@ function ButtonNewProject() {
 }
 
 function MyProjects () {
-  
   const headTitle = ["Project Name", "Project Description", "Project manager", "Actions"];
   const columns = ["projectName", "projectDescription", "projectManager"];
   const projectController = new ProjectController();
@@ -24,7 +23,9 @@ function MyProjects () {
   useEffect(() => {
     const getProjects = async () => {
      try {
-        const token = await getAccessTokenSilently();
+        const token = await getAccessTokenSilently({
+          permissions: "read:projects"
+        });
         projectController.setAccessToken(token);
         projectController.getProjects()
           .then(response => {
