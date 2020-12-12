@@ -20,7 +20,7 @@ function App() {
           audience="https://bugtracker-api"
           /*These are all scopes that app could use in the future. After authentication user will have only own permissions, 
           not for sure all listed below*/
-          scope="read:allProjects read:tickets write:project">
+          scope="create:projects read:projects update:projects delete:projects">
           <Router history={history}>
             <Switch>
               <Route exact path="/" component={HomePage}/>
