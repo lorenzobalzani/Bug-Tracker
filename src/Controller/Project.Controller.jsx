@@ -18,7 +18,11 @@ export default class ProjectController {
   }
 
   getProjectsByProjectManager(projectManagerEmail) {
-    return http.get(`/projects/getProjectsByProjectManager/${projectManagerEmail}`);
+    return http.get(`/projects/getProjectsByProjectManager/${projectManagerEmail}`, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      }
+    })
   }
 
   createProject(data) {
