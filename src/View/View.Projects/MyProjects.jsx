@@ -42,8 +42,13 @@ function MyProjects () {
     getProjects();
   }, []);
 
-  const deleteProjectById = (id) => {
+  const deleteProjectById = async (id) => {
+    const token = await getAccessTokenSilently({
+      permissions: "delete:projects delete:tickets"
+    });
+    projectController.setAccessToken(token);
     projectController.deleteProjectById(id);
+    ticketController.setAccessToken(token);
     ticketController.deleteTicketsByProjectId(id);
   }
 

@@ -1,85 +1,83 @@
 import '../Styles/App.css';
 import '../Styles/Form.css';
 
-import React from "react";
+import React, { useState } from "react";
 import TicketController from '../../Controller/Ticket.Controller';
 import {useParams} from "react-router-dom";
 import history from '../history'
+import { useAuth0 } from "@auth0/auth0-react";
 
+function Input(props) {
+    let [ ticket, setTicket ] = useState({ticketName: "", ticketDescription: "", projectId: props.projectId, 
+    developerEmail: "", type: "", priority: "", status: ""});
+    const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+    const ticketController = new TicketController();
 
-class Input extends React.Component{ 
-    constructor(props) {
-        super(props);
-        this.state = {ticketName: "", ticketDescription: "", projectId: props.projectId, 
-        developerEmail: "", type: "", priority: "", status: ""};
-        this.ticketController = new TicketController();
-    }
-
-    createTicket = (e) => {
+    const createTicket = async (e) => {
         e.preventDefault();
-        this.ticketController.createTicket(this.state);
+        const token = await getAccessTokenSilently({
+          permissions: "create:tickets update:tickets"
+        });
+        ticketController.setAccessToken(token);
+        ticketController.createTicket(ticket);
         history.push("/dashboard/myTickets")
     }
 
-    updateField = (e) => {
-        const state = this.state;
-        state[e.target.id] = e.target.value;
-        this.setState(state);
+    const updateField = (e) => {
+        setTicket({...ticket, [`${e.target.id}`]: e.target.value});
     }
 
-    render() {
-        return (<>
+    return (<>
             <form>
                 <div className="form-group row">
                     <label htmlFor="ticketName" className="col-sm-2 col-form-label">Ticket name</label>
                         <div className="col-sm-10">
-                            <input type="text" value={this.state.ticketName} 
-                            onChange={this.updateField} className="form-control" id="ticketName" placeholder="Ticket name"/>
+                            <input type="text" value={ticket.ticketName} 
+                            onChange={updateField} className="form-control" id="ticketName" placeholder="Ticket name"/>
                         </div>
                 </div>
                 <div className="form-group row">
                     <label htmlFor="ticketDescription" className="col-sm-2 col-form-label">Ticket description</label>
                         <div className="col-sm-10">
-                            <input type="text" value={this.state.ticketDescription} 
-                            onChange={this.updateField} className="form-control" id="ticketDescription" placeholder="Ticket description"/>
+                            <input type="text" value={ticket.ticketDescription} 
+                            onChange={updateField} className="form-control" id="ticketDescription" placeholder="Ticket description"/>
                         </div>
                 </div>
                 <div className="form-group row">
                     <label htmlFor="developerEmail" className="col-sm-2 col-form-label">Developer</label>
                         <div className="col-sm-10">
-                            <input type="text" value={this.state.developerEmail} 
-                            onChange={this.updateField} className="form-control" id="developerEmail" placeholder="Developer email"/>
+                            <input type="text" value={ticket.developerEmail} 
+                            onChange={updateField} className="form-control" id="developerEmail" placeholder="Developer email"/>
                         </div>
                 </div>
                 <div className="form-group row">
                     <label htmlFor="type" className="col-sm-2 col-form-label">Type</label>
                         <div className="col-sm-10">
-                            <input type="text" value={this.state.type} 
-                            onChange={this.updateField} className="form-control" id="type" placeholder="Type"/>
+                            <input type="text" value={ticket.type} 
+                            onChange={updateField} className="form-control" id="type" placeholder="Type"/>
                         </div>
                 </div>
                 <div className="form-group row">
                     <label htmlFor="priority" className="col-sm-2 col-form-label">Priority</label>
                         <div className="col-sm-10">
-                            <input type="text" value={this.state.priority} 
-                            onChange={this.updateField} className="form-control" id="priority" placeholder="Priority"/>
+                            <input type="text" value={ticket.priority} 
+                            onChange={updateField} className="form-control" id="priority" placeholder="Priority"/>
                         </div>
                 </div>
                 <div className="form-group row">
                     <label htmlFor="status" className="col-sm-2 col-form-label">Status</label>
                         <div className="col-sm-10">
-                            <input type="text" value={this.state.status} 
-                            onChange={this.updateField} className="form-control" id="status" placeholder="Status"/>
+                            <input type="text" value={ticket.status} 
+                            onChange={updateField} className="form-control" id="status" placeholder="Status"/>
                         </div>
                 </div>
                 <div className="form-group row">
                     <div className="col-sm-10">
-                        <button type="submit" onClick={this.createTicket} className="btn btn-primary">Create ticket</button>
+                        <button type="submit" onClick={createTicket} className="btn btn-primary">Create ticket</button>
                     </div>
                 </div>
             </form>
-        </>);
-    }
+    </>);
 }
 
 function NewTicket () {

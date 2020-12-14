@@ -15,7 +15,9 @@ function Input() {
     useEffect(() => {
         const getToken = async () => {
          try {
-            const token = await getAccessTokenSilently();
+            const token = await getAccessTokenSilently({
+                permissions: "create:projects"
+            });
             projectController.setAccessToken(token);
           } catch (e) {
             console.log(e.message);

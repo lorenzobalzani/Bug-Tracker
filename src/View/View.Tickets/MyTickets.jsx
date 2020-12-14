@@ -40,38 +40,41 @@ function MyTickets() {
         console.log(e.message);
       }
     };
-  
     getProjects();
   }, []);
 
-  const deleteTicketById = (id) => {
+  const deleteTicketById = async (id) => {
+    const token = await getAccessTokenSilently({
+      permissions: "delete:tickets"
+    });
+    ticketController.setAccessToken(token);
     ticketController.deleteTicketById(id);
     updateTickets();
   }
 
-  const updateSelectedProject = (e) => {
-    if (e.target.value === "") {
+  const updateTickets = async (value) => {
+    if (value === "") {
       setTickets([]);
     } else {
-      setSelectedProject(e.target.value);
-      updateTickets();
-    }
-  }
-
-  const updateTickets = () => {
-    ticketController.getTicketsByProjectId(selectedProject)
-       .then(response => {
-         setTickets(response.data)
-       })
-       .catch(e => {
-         console.log("Ticket error => " + e);
-       });
+      const token = await getAccessTokenSilently({
+        permissions: "read:tickets"
+      });
+      setSelectedProject(value);
+      ticketController.setAccessToken(token);
+      ticketController.getTicketsByProjectId(value)
+        .then(response => {
+          setTickets(response.data)
+        })
+        .catch(e => {
+          console.log("Ticket error => " + e);
+        });
+      }
    }
 
   return(
     <div className="content-container">
       <select className="browser-default custom-select" id="selectProjectInput" value={selectedProject} 
-              onChange={updateSelectedProject}>
+              onChange={e => updateTickets(e.target.value)}>
               <option value="">Select project</option>
         {projects.map((project) => (
           <option key={project.id} value={project.id}>{project.projectName}</option>

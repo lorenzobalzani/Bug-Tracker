@@ -11,7 +11,7 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import HomePage from './HomePage';
 
 const scopes = "create:projects read:projects update:projects delete:projects" +
-                "create:tickets read:tickets update:tickets delete:tickets"
+                " create:tickets read:tickets update:tickets delete:tickets"
 
 function App() {
   return (
