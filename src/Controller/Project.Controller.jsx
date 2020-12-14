@@ -14,7 +14,11 @@ export default class ProjectController {
   }
 
   getProjectById(id) {
-    return http.get(`/projects/getProject/${id}`);
+    return http.get(`/projects/getProject/${id}`, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      }
+    });
   }
 
   getProjectsByProjectManager(projectManagerEmail) {
@@ -34,14 +38,26 @@ export default class ProjectController {
   }
 
   updateProject(id, data) {
-    return http.put(`/projects/updateProject/${id}`, data);
+    return http.put(`/projects/updateProject/${id}`, data, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      }
+    });
   }
 
   deleteProjectById(id) {
-    return http.delete(`/projects/deleteProject/${id}`);
+    return http.delete(`/projects/deleteProject/${id}`, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      }
+    });
   }
 
   deleteAllProjects() {
-    return http.delete(`/projects/deleteAllProjects`);
+    return http.delete(`/projects/deleteAllProjects`, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      }
+    });
   }
 }
