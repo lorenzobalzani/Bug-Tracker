@@ -10,6 +10,9 @@ import history from './history'
 import { Auth0Provider } from "@auth0/auth0-react";
 import HomePage from './HomePage';
 
+const scopes = "create:projects read:projects update:projects delete:projects" +
+                " create:tickets read:tickets update:tickets delete:tickets"
+
 function App() {
   return (
     <div className="App">
@@ -20,7 +23,7 @@ function App() {
           audience="https://bugtracker-api"
           /*These are all scopes that app could use in the future. After authentication user will have only own permissions, 
           not for sure all listed below*/
-          scope="create:projects read:projects update:projects delete:projects">
+          scope={scopes}>
           <Router history={history}>
             <Switch>
               <Route exact path="/" component={HomePage}/>

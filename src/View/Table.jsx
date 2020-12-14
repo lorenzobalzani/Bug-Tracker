@@ -32,7 +32,7 @@ function Table(props) {
         </thead>
         <tbody>
             {props.data.map(data =>
-                    <tr key={data}>
+                    <tr key={data.id}>
                         {props.columns.map(columnName => {
                             let value = data[columnName]
                             return <td key={columnName} className="align-middle"> {value} </td>
