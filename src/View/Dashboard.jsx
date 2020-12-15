@@ -1,5 +1,5 @@
 import './Styles/App.css';
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Switch,
   Route,
@@ -15,10 +15,22 @@ import Loading from './Loading';
 import { PeopleIcon, ListIcon, ProjectsIcon, LogOutIcon, HomeIcon, ProfileIcon } from './Styles/Icons';
 import ChangeUserDetails from './View.Users/ChangeUserDetails'
 import {withAuthenticationRequired, useAuth0} from '@auth0/auth0-react'
+import jwt from 'jsonwebtoken';
 
 function LeftBar() {
   let { url } = useRouteMatch();
   const { logout } = useAuth0();
+  const { getAccessTokenSilently } = useAuth0();
+  let [ permissions, setPermissions ] = useState("");
+  
+  useEffect(() => {
+    let isMounted = true; // note this flag denote mount status
+    getAccessTokenSilently().then((token) => {
+      if (isMounted) setPermissions((jwt.decode(token)).permissions);
+    });
+    return () => { isMounted = false }; // use effect cleanup to set flag false, if unmounted
+  }, {permissions});
+
   return (
     <div id="leftColumn" className="col-xs-12 col-sm-12 col-md-3 d-flex justify-content-center">
       <ul>
@@ -26,12 +38,14 @@ function LeftBar() {
         <Link to="/" className="buttonNav py-3 btn btn-block"><HomeIcon/>Dashboard</Link></li>
       <li>
         <Link to={`${url}/users`} className="buttonNav py-3 btn btn-block"><PeopleIcon/>App's users (ADMIN)</Link></li>
-      <li>
-        <Link to={`${url}/myProjects`} className="buttonNav py-3 btn btn-block"><ProjectsIcon/>My projects (ADMIN & PM)</Link>
-      </li>
-      <li>
-        <Link to={`${url}/myTickets`} className="buttonNav py-3 btn btn-block"><ListIcon/>My tickets (DEVELOPER)</Link>
-      </li>
+        <li>
+          <Link to={`${url}/myTickets`} className="buttonNav py-3 btn btn-block"><ListIcon/>My tickets (DEVELOPER)</Link>
+        </li>
+      {permissions.includes("create:projects") && (
+         <li>
+         <Link to={`${url}/myProjects`} className="buttonNav py-3 btn btn-block"><ProjectsIcon/>My projects (ADMIN & PM)</Link>
+       </li>
+      )}
       <li>
         <Link to={`${url}/myProfile`} className="buttonNav py-3 btn btn-block"><ProfileIcon/>My profile (ALL)</Link>
       </li>
@@ -43,7 +57,7 @@ function LeftBar() {
   );
 }
 
-function NavBar(){
+function NavBar (){
   let { path } = useRouteMatch();
   const { user } = useAuth0();
   return(
