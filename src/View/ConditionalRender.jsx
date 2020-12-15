@@ -1,6 +1,6 @@
-function ConditionalRender(props) {
-    if (props.permissions.includes(props.permissionsToCheck)) return props.component;
-    return null;
+function ConditionalRender(permissions, permissionsToCheck) {
+    if (permissions.includes(permissionsToCheck)) return true;
+    return false;
 }
   
 export default ConditionalRender;

@@ -8,7 +8,6 @@ import {
 } from "react-router-dom";
 import MyProjects from './View.Projects/MyProjects';
 import NewProject from './View.Projects/NewProject';
-import MyTickets from './View.Tickets/MyTickets';
 import NewTicket from './View.Tickets/NewTicket';
 import Users from './View.Users/Users';
 import ConditionalRender from './ConditionalRender'
@@ -17,12 +16,13 @@ import { PeopleIcon, ListIcon, ProjectsIcon, LogOutIcon, HomeIcon, ProfileIcon }
 import ChangeUserDetails from './View.Users/ChangeUserDetails'
 import {withAuthenticationRequired, useAuth0} from '@auth0/auth0-react'
 import jwt from 'jsonwebtoken';
+import MyTickets from './View.Tickets/MyTickets';
 
 function LeftBar() {
   let { url } = useRouteMatch();
   const { logout } = useAuth0();
   const { getAccessTokenSilently } = useAuth0();
-  let [ permissions, setPermissions ] = useState("");
+  let [ permissions, setPermissions ] = useState([]);
   
   useEffect(() => {
     let isMounted = true; // note this flag denote mount status
@@ -30,22 +30,24 @@ function LeftBar() {
       if (isMounted) setPermissions((jwt.decode(token)).permissions);
     });
     return () => { isMounted = false }; // use effect cleanup to set flag false, if unmounted
-  }, {permissions});
+  }, []);
 
   return (
     <div id="leftColumn" className="col-xs-12 col-sm-12 col-md-3 d-flex justify-content-center">
       <ul>
         <li><Link to="/" className="buttonNav py-3 btn btn-block"><HomeIcon/>Dashboard</Link></li>
-        
-        <ConditionalRender component={<li><Link to={`${url}/users`} className="buttonNav py-3 btn btn-block"><PeopleIcon/>App's users</Link></li>} 
-          permissions={permissions} permissionsToCheck="read:users"/>
-        
-        <ConditionalRender component={<li><Link to={`${url}/myTickets`} className="buttonNav py-3 btn btn-block"><ListIcon/>My tickets</Link></li>} 
-          permissions={permissions} permissionsToCheck="read:tickets"/>
-        
-        <ConditionalRender component={<li><Link to={`${url}/myProjects`} className="buttonNav py-3 btn btn-block"><ProjectsIcon/>My projects
-          </Link></li>} 
-          permissions={permissions} permissionsToCheck="read:projects"/>
+    
+        {ConditionalRender(permissions, "read:users") && (
+          <li><Link to={`${url}/users`} className="buttonNav py-3 btn btn-block"><PeopleIcon/>App's users</Link></li>
+        )}
+
+        {ConditionalRender(permissions, "read:tickets") && (
+          <li><Link to={`${url}/myTickets`} className="buttonNav py-3 btn btn-block"><ListIcon/>My tickets</Link></li>
+        )}
+
+        {ConditionalRender(permissions, "read:projects") && (
+         <li><Link to={`${url}/myProjects`} className="buttonNav py-3 btn btn-block"><ProjectsIcon/>My projects</Link></li>
+        )}
 
         <li> <Link to={`${url}/myProfile`} className="buttonNav py-3 btn btn-block"><ProfileIcon/>My profile</Link></li>
 
