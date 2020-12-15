@@ -4,16 +4,20 @@ import Dashboard from './Dashboard';
 import {
   Router,
   Switch,
-  Route
+  Route,
+  useHistory
 } from "react-router-dom";
 import history from './history'
 import { Auth0Provider } from "@auth0/auth0-react";
 import HomePage from './HomePage';
 
 const scopes = "create:projects read:projects update:projects delete:projects" +
-                " create:tickets read:tickets update:tickets delete:tickets"
+                " create:tickets read:tickets update:tickets delete:tickets";
 
 function App() {
+  const onRedirectCallback = (appState) => {
+    history.push(appState?.returnTo || window.location.pathname)
+  }
   return (
     <div className="App">
       <Auth0Provider
@@ -21,6 +25,7 @@ function App() {
           clientId="tyffmLPmLw90LohrxChAf7no9dfJyNUz"
           redirectUri="http://192.168.178.24:3000/dashboard"
           audience="https://bugtracker-api"
+          onRedirectCallback={onRedirectCallback}
           /*These are all scopes that app could use in the future. After authentication user will have only own permissions, 
           not for sure all listed below*/
           scope={scopes}>

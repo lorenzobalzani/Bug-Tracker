@@ -30,26 +30,26 @@ function LeftBar() {
       if (isMounted) setPermissions((jwt.decode(token)).permissions);
     });
     return () => { isMounted = false }; // use effect cleanup to set flag false, if unmounted
-  }, []);
+  }, [getAccessTokenSilently]);
 
   return (
     <div id="leftColumn" className="col-xs-12 col-sm-12 col-md-3 d-flex justify-content-center">
       <ul>
-        <li><Link to="/" className="buttonNav py-3 btn btn-block"><HomeIcon/>Dashboard</Link></li>
+        <li><Link id="dashboard" to="/dashboard" className="buttonNav py-3 btn btn-block"><HomeIcon/>Dashboard</Link></li>
     
         {ConditionalRender(permissions, "read:users") && (
-          <li><Link to={`${url}/users`} className="buttonNav py-3 btn btn-block"><PeopleIcon/>App's users</Link></li>
+          <li><Link id="users" to={`${url}/users`} className="buttonNav py-3 btn btn-block"><PeopleIcon/>App's users</Link></li>
         )}
 
         {ConditionalRender(permissions, "read:tickets") && (
-          <li><Link to={`${url}/myTickets`} className="buttonNav py-3 btn btn-block"><ListIcon/>My tickets</Link></li>
+          <li><Link id="tickets" to={`${url}/myTickets`} className="buttonNav py-3 btn btn-block"><ListIcon/>My tickets</Link></li>
         )}
 
         {ConditionalRender(permissions, "read:projects") && (
-         <li><Link to={`${url}/myProjects`} className="buttonNav py-3 btn btn-block"><ProjectsIcon/>My projects</Link></li>
+         <li><Link id="projects" to={`${url}/myProjects`} className="buttonNav py-3 btn btn-block"><ProjectsIcon/>My projects</Link></li>
         )}
 
-        <li> <Link to={`${url}/myProfile`} className="buttonNav py-3 btn btn-block"><ProfileIcon/>My profile</Link></li>
+        <li> <Link id="profile" to={`${url}/myProfile`} className="buttonNav py-3 btn btn-block"><ProfileIcon/>My profile</Link></li>
 
         <li><a className="buttonNav py-3 btn btn-block" onClick={() => logout({ returnTo: window.location.origin })}> <LogOutIcon/>Logout</a></li>
       </ul>

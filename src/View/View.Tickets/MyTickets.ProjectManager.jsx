@@ -49,7 +49,7 @@ function MyTicketsProjectManager() {
     });
     ticketController.setAccessToken(token);
     ticketController.deleteTicketById(id);
-    updateTickets();
+    updateTickets(selectedProject);
   }
 
   const updateTickets = async (value) => {
