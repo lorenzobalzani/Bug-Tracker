@@ -14,7 +14,7 @@ export default class TicketController {
   }
 
   getTicketsByDeveloperEmail(developerEmail) {
-    return http.get(`/tickets/getTicketsByDeveloperEmail/${developerEmail}`, {
+    return http.get(`/tickets/getTicketsByDeveloper/${developerEmail}`, {
       headers: {
         Authorization: `Bearer ${this.accessToken}`,
       }
