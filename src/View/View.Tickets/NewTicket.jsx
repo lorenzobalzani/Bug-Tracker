@@ -9,7 +9,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 function Input(props) {
     let [ ticket, setTicket ] = useState({ticketName: "", ticketDescription: "", projectId: props.projectId, 
-    developerEmail: "", type: "", priority: "", status: ""});
+    developerEmail: "", type: "Feature", priority: "Normal", status: "Open"});
     const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
     const ticketController = new TicketController();
 
@@ -39,7 +39,7 @@ function Input(props) {
                 <div className="form-group row">
                     <label htmlFor="ticketDescription" className="col-sm-2 col-form-label">Ticket description</label>
                         <div className="col-sm-10">
-                            <input type="text" value={ticket.ticketDescription} 
+                            <textarea value={ticket.ticketDescription} 
                             onChange={updateField} className="form-control" id="ticketDescription" placeholder="Ticket description"/>
                         </div>
                 </div>
@@ -53,22 +53,33 @@ function Input(props) {
                 <div className="form-group row">
                     <label htmlFor="type" className="col-sm-2 col-form-label">Type</label>
                         <div className="col-sm-10">
-                            <input type="text" value={ticket.type} 
-                            onChange={updateField} className="form-control" id="type" placeholder="Type"/>
+                            <select id="type" onChange={updateField} 
+                                    value={ticket.type} className="form-control">
+                                    <option>Feature</option>
+                                    <option>Bug</option>
+                            </select>
                         </div>
                 </div>
                 <div className="form-group row">
                     <label htmlFor="priority" className="col-sm-2 col-form-label">Priority</label>
                         <div className="col-sm-10">
-                            <input type="text" value={ticket.priority} 
-                            onChange={updateField} className="form-control" id="priority" placeholder="Priority"/>
+                            <select id="priority" onChange={updateField} 
+                                    value={ticket.priority} className="form-control">
+                                    <option>Low</option>
+                                    <option>Normal</option>
+                                    <option>High</option>
+                            </select>
                         </div>
                 </div>
                 <div className="form-group row">
                     <label htmlFor="status" className="col-sm-2 col-form-label">Status</label>
                         <div className="col-sm-10">
-                            <input type="text" value={ticket.status} 
-                            onChange={updateField} className="form-control" id="status" placeholder="Status"/>
+                            <select id="status" onChange={updateField} 
+                                    value={ticket.status} className="form-control">
+                                    <option>Open</option>
+                                    <option>In progress</option>
+                                    <option>Closed</option>
+                            </select>
                         </div>
                 </div>
                 <div className="form-group row">
