@@ -1,11 +1,10 @@
 import React from 'react';
 import './Styles/App.css';
-import Dashboard from './Dashboard';
+import BugTracker from './BugTracker';
 import {
   Router,
   Switch,
-  Route,
-  useHistory
+  Route
 } from "react-router-dom";
 import history from './history'
 import { Auth0Provider } from "@auth0/auth0-react";
@@ -32,7 +31,7 @@ function App() {
           <Router history={history}>
             <Switch>
               <Route exact path="/" component={HomePage}/>
-              <Route path="/dashboard" component={Dashboard}/>
+              <Route path="/dashboard" component={BugTracker}/>
             </Switch>
           </Router>
       </Auth0Provider>
