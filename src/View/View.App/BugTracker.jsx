@@ -1,4 +1,4 @@
-import './Styles/App.css';
+import '../Styles/App.css';
 import React, { useEffect, useState } from "react";
 import {
   Switch,
@@ -6,18 +6,18 @@ import {
   Link,
   useRouteMatch,
 } from "react-router-dom";
-import MyProjects from './View.Projects/MyProjects';
-import NewProject from './View.Projects/NewProject';
-import NewTicket from './View.Tickets/NewTicket';
-import Users from './View.Users/Users';
-import ConditionalRender from './ConditionalRender'
-import Loading from './Loading';
-import { PeopleIcon, ListIcon, ProjectsIcon, LogOutIcon, HomeIcon, ProfileIcon } from './Styles/Icons';
-import ChangeUserDetails from './View.Users/ChangeUserDetails'
+import MyProjects from '../View.Projects/MyProjects';
+import NewProject from '../View.Projects/NewProject';
+import NewTicket from '../View.Tickets/NewTicket';
+import Users from '../View.Users/Users';
+import ConditionalRender from '../View.Utility/ConditionalRender'
+import Loading from '../View.Utility/Loading';
+import { PeopleIcon, ListIcon, ProjectsIcon, LogOutIcon, HomeIcon, ProfileIcon } from '../Styles/Icons';
+import ChangeUserDetails from '../View.Users/ChangeUserDetails'
 import {withAuthenticationRequired, useAuth0} from '@auth0/auth0-react'
 import jwt from 'jsonwebtoken';
-import MyTickets from './View.Tickets/MyTickets';
-import Dashboard from './Dashboard';
+import MyTickets from '../View.Tickets/MyTickets';
+import Dashboard from '../View.Dashboard/Dashboard';
 
 function LeftBar() {
   let { url } = useRouteMatch();

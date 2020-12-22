@@ -1,12 +1,12 @@
 import React from 'react';
-import './Styles/App.css';
+import '../Styles/App.css';
 import BugTracker from './BugTracker';
 import {
   Router,
   Switch,
   Route
 } from "react-router-dom";
-import history from './history'
+import history from '../View.Utility/History'
 import { Auth0Provider } from "@auth0/auth0-react";
 import HomePage from './HomePage';
 

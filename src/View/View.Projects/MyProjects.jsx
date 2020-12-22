@@ -2,7 +2,7 @@ import '../Styles/App.css';
 
 import React, { useState, useEffect } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
-import Table from '../Table'
+import Table from '../View.Utility/Table'
 import ProjectController from "../../Controller/Project.Controller";
 import TicketController from "../../Controller/Ticket.Controller";
 import { useAuth0 } from "@auth0/auth0-react";

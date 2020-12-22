@@ -1,5 +1,5 @@
 import React from 'react';
-import './Styles/LandingPage.css';
+import '../Styles/LandingPage.css';
 import { useAuth0 } from "@auth0/auth0-react";
 
 function LandingPage() {

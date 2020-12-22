@@ -1,6 +1,6 @@
 import React , { useState } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
-import { DeleteIcon, EditIcon, PeopleIcon } from './Styles/Icons';
+import { DeleteIcon, EditIcon, PeopleIcon } from '../Styles/Icons';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 function Table(props) {

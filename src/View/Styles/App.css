@@ -136,3 +136,11 @@ li {
   position: absolute;
   top: 40%;
 }
+
+#selectRadarProject {
+  margin-bottom: 20px;
+}
+
+#selectProjectsCol {
+  height: 40%;
+}
