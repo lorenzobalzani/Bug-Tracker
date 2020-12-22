@@ -1,43 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Bar } from 'react-chartjs-2'
 import { useAuth0 } from "@auth0/auth0-react";
 import TicketController from '../../Controller/Ticket.Controller';
-
-function BarGraph(props) {
-    return(
-        <Bar
-            data={{
-                labels: props.labelsX,
-                datasets: [
-                    {
-                        data: props.data,
-                        backgroundColor: props.colors,
-                        borderColor: props.colors,
-                        borderWidth: 1
-                    }]
-            }}
-            options={{
-                maintainAspectRatio: false,
-                    legend: {
-                        display: false,
-                    },
-                    title: {
-                        display: true,
-                        text: props.title
-                    },
-                    layout: {
-                       
-                    },
-                    scales: {
-                        yAxes : [{
-                            ticks: {
-                                beginAtZero: true
-                            }
-                        }]
-                    }
-            }}/>
-    );
-}
+import BarGraph from '../View.Utility/BarGraph'
 
 function DashboardDeveloper() {
     const { user, getAccessTokenSilently } = useAuth0();
@@ -77,16 +41,16 @@ function DashboardDeveloper() {
 
     return (<>
             <div className="col col-12 col-xl-6">
-                <BarGraph title={"Ticket by status"} data={statusGraph} labelsX={['Open', 'In progress', 'Closed']} 
-                colors={['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(75, 192, 192, 0.2)']}/>
+                <BarGraph title={"Tickets by status"} data={statusGraph} labelsX={['Open', 'In progress', 'Closed']} 
+                colors={['rgba(204, 51, 0, 0.8)', 'rgba(54, 162, 235, 0.8)', 'rgba(51, 153, 0, 0.8)']}/>
            </div>
            <div className="col col-12 col-xl-6">
-                <BarGraph title={"Ticket by type"} data={typeGraph} labelsX={['Bug', 'Feature']} 
-                        colors={['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)']}/>
+                <BarGraph title={"Tickets by type"} data={typeGraph} labelsX={['Bug', 'Feature']} 
+                        colors={['rgba(204, 51, 0, 0.8)', 'rgba(54, 162, 235, 0.8)']}/>
            </div>
            <div className="col col-12">
-                <BarGraph title={"Ticket by priority"} data={priorityGraph} labelsX={['Low', 'Normal', 'High']} 
-                        colors={['rgba(75, 192, 192, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 99, 132, 0.2)']}/>
+                <BarGraph title={"Tickets by priority"} data={priorityGraph} labelsX={['Low', 'Normal', 'High']} 
+                        colors={['rgba(51, 153, 0, 0.8)', 'rgba(255, 153, 80, 0.8)', 'rgba(204, 51, 0, 0.8)']}/>
            </div>
     </>);
 }

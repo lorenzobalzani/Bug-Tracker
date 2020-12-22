@@ -7,12 +7,8 @@ import jwt from 'jsonwebtoken';
 
 
 function Dashboard() {
-    let data = [15, 3, 30];
-    let data2 = [4, 15, 20];
-   
     let [ permissions, setPermissions ] = useState([]);
     const { user, getAccessTokenSilently } = useAuth0();
-    
 
     useEffect(() => {
         getAccessTokenSilently().then(token => {
@@ -23,8 +19,7 @@ function Dashboard() {
     if (ConditionalRender(permissions, "read:projects")) {
         return <div className="content-container">
         <div className="content-title">
-          <h1>Dashboard</h1>
-          <h2>Description</h2>
+            <h1>Welcome to BugTracker</h1>
         </div>
         <div className="container-fluid">
         <div className="graphs row"><DashboardProjectManager/>
@@ -34,8 +29,7 @@ function Dashboard() {
     } else if (ConditionalRender(permissions, "read:tickets")){
         return <div className="content-container">
         <div className="content-title">
-          <h1>Dashboard</h1>
-          <h2>Description</h2>
+          <h1>Welcome to BugTracker</h1>
         </div>
         <div className="container-fluid">
         <div className="graphs row"> <DashboardDeveloper/>

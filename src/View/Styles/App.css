@@ -144,3 +144,7 @@ li {
 #selectProjectsCol {
   height: 40%;
 }
+
+.graphs > select {
+  margin-bottom: 20px;
+}
