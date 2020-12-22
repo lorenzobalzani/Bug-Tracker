@@ -1,6 +1,6 @@
 import '../Styles/App.css';
 import React, { useState, useEffect } from "react"
-import Table from '../Table'
+import Table from '../View.Utility/Table'
 import UserController from '../../Controller/User.Controller'
 import { useAuth0 } from "@auth0/auth0-react";
 

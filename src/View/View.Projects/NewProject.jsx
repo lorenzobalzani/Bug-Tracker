@@ -3,7 +3,7 @@ import '../Styles/Form.css';
 import { useAuth0 } from "@auth0/auth0-react";
 import React, { useState, useEffect } from "react";
 import ProjectController from '../../Controller/Project.Controller';
-import history from '../history'
+import history from '../View.Utility/History'
 
 function Input() {
     let [projectName, setProjectName] = useState("");

@@ -4,7 +4,7 @@ import '../Styles/Form.css';
 import React, { useState } from "react";
 import TicketController from '../../Controller/Ticket.Controller';
 import {useParams} from "react-router-dom";
-import history from '../history'
+import history from '../View.Utility/History'
 import { useAuth0 } from "@auth0/auth0-react";
 
 function Input(props) {
