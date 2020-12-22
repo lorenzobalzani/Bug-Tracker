@@ -31,7 +31,7 @@ function Dashboard() {
         </div>
         <div className="container-fluid">
         {pieGraphSwitch}
-        <div className="graphs row">
+        <div id="graphs" className="row">
           <DashboardProjectManager pieGraphs={isChecked}/>
         </div>
         </div>
@@ -43,7 +43,7 @@ function Dashboard() {
         </div>
         <div className="container-fluid">
         {pieGraphSwitch}
-        <div className="graphs row">
+        <div id ="graphs" className="row">
           <DashboardDeveloper pieGraphs={isChecked}/>
         </div>
         </div>

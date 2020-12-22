@@ -16,7 +16,7 @@ function DoughnutGraph(props) {
             options={{
                 maintainAspectRatio: false,
                     legend: {
-                        display: false,
+                        display: true,
                     },
                     title: {
                         display: true,

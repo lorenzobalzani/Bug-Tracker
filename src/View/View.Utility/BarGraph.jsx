@@ -16,14 +16,11 @@ function BarGraph(props) {
             options={{
                 maintainAspectRatio: false,
                     legend: {
-                        display: props.displayLegend,
+                        display: false,
                     },
                     title: {
                         display: true,
                         text: props.title
-                    },
-                    layout: {
-                       
                     },
                     scales: {
                         yAxes : [{
