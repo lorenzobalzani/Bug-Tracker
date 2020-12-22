@@ -148,3 +148,7 @@ li {
 .graphs > select {
   margin-bottom: 20px;
 }
+
+.custom-switch {
+  height: initial !important;
+}

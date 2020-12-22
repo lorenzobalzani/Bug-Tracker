@@ -1,8 +1,8 @@
-import { Bar } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 
-function BarGraph(props) {
+function DoughnutGraph(props) {
     return(
-        <Bar
+        <Doughnut
             data={{
                 labels: props.labelsX,
                 datasets: [
@@ -16,24 +16,14 @@ function BarGraph(props) {
             options={{
                 maintainAspectRatio: false,
                     legend: {
-                        display: props.displayLegend,
+                        display: false,
                     },
                     title: {
                         display: true,
                         text: props.title
-                    },
-                    layout: {
-                       
-                    },
-                    scales: {
-                        yAxes : [{
-                            ticks: {
-                                beginAtZero: true
-                            }
-                        }]
                     }
             }}/>
     );
 }
 
-export default BarGraph;
+export default DoughnutGraph;
