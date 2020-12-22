@@ -3,8 +3,9 @@ import { useEffect, useState } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 import TicketController from '../../Controller/Ticket.Controller';
 import ProjectController from '../../Controller/Project.Controller';
+import Doughnut from '../View.Utility/Doughnut';
 
-function DashboardProjectManager() {
+function DashboardProjectManager(props) {
     const { user, getAccessTokenSilently } = useAuth0();
     let [ statusGraph, setStatusGraph ] = useState();
     let [ typeGraph, setTypeGraph ] = useState();
@@ -73,18 +74,28 @@ function DashboardProjectManager() {
                     <option key={project.id} value={project.id}>{project.projectName}</option>
                 ))}
             </select>
-            <div className="col col-12 col-xl-6">
+            {selectedProject !== "" ?
+            <>
+            <div className="graph col col-12 col-xl-6">
+                {props.pieGraphs ? <Doughnut title={"Tickets by status"} data={statusGraph} labelsX={['Open', 'In progress', 'Closed']} 
+                colors={['rgba(204, 51, 0, 0.8)', 'rgba(54, 162, 235, 0.8)', 'rgba(51, 153, 0, 0.8)']}/> :
                 <BarGraph title={"Tickets by status"} data={statusGraph} labelsX={['Open', 'In progress', 'Closed']} 
-                colors={['rgba(204, 51, 0, 0.8)', 'rgba(54, 162, 235, 0.8)', 'rgba(51, 153, 0, 0.8)']}/>
+                colors={['rgba(204, 51, 0, 0.8)', 'rgba(54, 162, 235, 0.8)', 'rgba(51, 153, 0, 0.8)']}/>}
            </div>
-           <div className="col col-12 col-xl-6">
+           <div className="graph col col-12 col-xl-6">
+               {props.pieGraphs ? <Doughnut title={"Tickets by type"} data={typeGraph} labelsX={['Bug', 'Feature']} 
+                        colors={['rgba(204, 51, 0, 0.8)', 'rgba(54, 162, 235, 0.8)']}/> :
                 <BarGraph title={"Tickets by type"} data={typeGraph} labelsX={['Bug', 'Feature']} 
-                        colors={['rgba(204, 51, 0, 0.8)', 'rgba(54, 162, 235, 0.8)']}/>
+                        colors={['rgba(204, 51, 0, 0.8)', 'rgba(54, 162, 235, 0.8)']}/> }
            </div>
-           <div className="col col-12">
+           <div className="graph col col-12">
+               {props.pieGraphs ?  <Doughnut title={"Tickets by priority"} data={priorityGraph} labelsX={['Low', 'Normal', 'High']} 
+                colors={['rgba(51, 153, 0, 0.8)', 'rgba(255, 153, 80, 0.8)', 'rgba(204, 51, 0, 0.8)']}/> : 
                 <BarGraph title={"Tickets by priority"} data={priorityGraph} labelsX={['Low', 'Normal', 'High']} 
-                        colors={['rgba(51, 153, 0, 0.8)', 'rgba(255, 153, 80, 0.8)', 'rgba(204, 51, 0, 0.8)']}/>
+                colors={['rgba(51, 153, 0, 0.8)', 'rgba(255, 153, 80, 0.8)', 'rgba(204, 51, 0, 0.8)']}/>}
            </div>
+           </>
+           : <p>Please select a project to see its statistics</p>}
     </>);
 }
 

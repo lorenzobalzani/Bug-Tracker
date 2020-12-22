@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 import TicketController from '../../Controller/Ticket.Controller';
 import BarGraph from '../View.Utility/BarGraph'
+import Doughnut from '../View.Utility/Doughnut';
 
-function DashboardDeveloper() {
+function DashboardDeveloper(props) {
     const { user, getAccessTokenSilently } = useAuth0();
     let [ statusGraph, setStatusGraph] = useState();
     let [ typeGraph, setTypeGraph] = useState();
     let [ priorityGraph, setPriorityGraph] = useState();
+    let [ tickets, setTickets ] = useState([]);
 
     useEffect(() => {
         const ticketController = new TicketController();
@@ -19,6 +21,8 @@ function DashboardDeveloper() {
                ticketController.setAccessToken(token);
                ticketController.getTicketsByDeveloperEmail(user.email)
                 .then(response => {
+                  console.log(response.data)
+                    setTickets(response.data);
                     setStatusGraph([]);
                     setTypeGraph([]);
                     setPriorityGraph([]);
@@ -40,18 +44,27 @@ function DashboardDeveloper() {
     }, [getAccessTokenSilently, user])
 
     return (<>
-            <div className="col col-12 col-xl-6">
+          {tickets.length > 0 ?
+            <>
+            <div className="graph col col-12 col-xl-6">
+              {props.pieGraphs ?  <Doughnut title={"Tickets by status"} data={statusGraph} labelsX={['Open', 'In progress', 'Closed']} 
+                colors={['rgba(204, 51, 0, 0.8)', 'rgba(54, 162, 235, 0.8)', 'rgba(51, 153, 0, 0.8)']}/> :
                 <BarGraph title={"Tickets by status"} data={statusGraph} labelsX={['Open', 'In progress', 'Closed']} 
-                colors={['rgba(204, 51, 0, 0.8)', 'rgba(54, 162, 235, 0.8)', 'rgba(51, 153, 0, 0.8)']}/>
+                colors={['rgba(204, 51, 0, 0.8)', 'rgba(54, 162, 235, 0.8)', 'rgba(51, 153, 0, 0.8)']}/>}
            </div>
-           <div className="col col-12 col-xl-6">
+           <div className="graph col col-12 col-xl-6">
+             {props.pieGraphs ?  <Doughnut title={"Tickets by type"} data={typeGraph} labelsX={['Bug', 'Feature']} 
+                        colors={['rgba(204, 51, 0, 0.8)', 'rgba(54, 162, 235, 0.8)']}/> : 
                 <BarGraph title={"Tickets by type"} data={typeGraph} labelsX={['Bug', 'Feature']} 
-                        colors={['rgba(204, 51, 0, 0.8)', 'rgba(54, 162, 235, 0.8)']}/>
+                        colors={['rgba(204, 51, 0, 0.8)', 'rgba(54, 162, 235, 0.8)']}/>}
            </div>
-           <div className="col col-12">
+           <div className="graph col col-12">
+             {props.pieGraphs ?  <Doughnut title={"Tickets by priority"} data={priorityGraph} labelsX={['Low', 'Normal', 'High']} 
+                        colors={['rgba(51, 153, 0, 0.8)', 'rgba(255, 153, 80, 0.8)', 'rgba(204, 51, 0, 0.8)']}/>: 
                 <BarGraph title={"Tickets by priority"} data={priorityGraph} labelsX={['Low', 'Normal', 'High']} 
-                        colors={['rgba(51, 153, 0, 0.8)', 'rgba(255, 153, 80, 0.8)', 'rgba(204, 51, 0, 0.8)']}/>
+                        colors={['rgba(51, 153, 0, 0.8)', 'rgba(255, 153, 80, 0.8)', 'rgba(204, 51, 0, 0.8)']}/>}
            </div>
+           </> : <p>For now, you have no tickets</p> }
     </>);
 }
 
