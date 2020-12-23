@@ -187,3 +187,15 @@ li {
   padding: .5em .3em .5em .5em;
   margin-top: 1em;
 }
+
+.error > .row {
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  display: block;
+}
+
+.error > .row > .col {
+    height: auto;
+}
