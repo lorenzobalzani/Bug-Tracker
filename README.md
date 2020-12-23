@@ -16,13 +16,11 @@ The main purpose of the project is to create a clone of an advanced tracking too
 
 ## Technologies
 ### Front-end
-* React - 17.0.1
-* Auth0 React SDK - 1.2.0
-* Axios - 0.21.0
-
-### Back-end (not included yet in this repo)
-* Node.js - 15.3.0
-* Express - 4.17.1
+* React - 17.0.1;
+* Auth0 React SDK - 1.2.0 for authentication and authorization;
+* Axios - 0.21.0 for HTTP requests;
+* Chart.js - 2.9.4 for charts;
+* React-beautiful-dnd - 13.0.0 for drag & drop;
 
 ## Setup and run
 Clone the repo and open a terminal in the folder. Then tip the following commands:\
@@ -30,10 +28,22 @@ Clone the repo and open a terminal in the folder. Then tip the following command
 
 ## Features
 ### Ready features
-* Awesome feature 1
+* Admin can:
+  * Create projects;
+  * Assing a PM to a project;
+  
+* Project manager can (for all own projects):
+  * View charts that show all tickets;
+  * Manage tickets;
+  
+* Developer can:
+  * View charts that show all own tickets;
+  * Update tickets status by using drag & drop
 
 ### TODOs 
-* Wow improvement to be done 1
+* User management by admin inside the app;
+* Profile editing;
+* Notifications;
 
 ## Status
 Project is actually in progress. I keep working on it in free time.
