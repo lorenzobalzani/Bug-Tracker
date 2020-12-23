@@ -26,8 +26,8 @@ function DashboardDeveloper(props) {
                     setStatusGraph([]);
                     setTypeGraph([]);
                     setPriorityGraph([]);
-                    setStatusGraph(statusGraph => [...statusGraph, response.data.filter(ticket => ticket.status === "Open").length, 
-                    response.data.filter(ticket => ticket.status === "In progress").length, response.data.filter(ticket => ticket.status === "Closed").length]);
+                    setStatusGraph(statusGraph => [...statusGraph, response.data.filter(ticket => ticket.status === "openTickets").length, 
+                    response.data.filter(ticket => ticket.status === "inProgressTickets").length, response.data.filter(ticket => ticket.status === "closedTickets").length]);
                     setTypeGraph(typeGraph => [...typeGraph, response.data.filter(ticket => ticket.type === "Bug").length, 
                     response.data.filter(ticket => ticket.type === "Feature").length]);
                     setPriorityGraph(priorityGraph => [...priorityGraph, response.data.filter(ticket => ticket.priority === "Low").length, 

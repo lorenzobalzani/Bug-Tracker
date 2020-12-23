@@ -7,8 +7,8 @@ import {
   Route
 } from "react-router-dom";
 import history from '../View.Utility/History'
-import { Auth0Provider } from "@auth0/auth0-react";
-import HomePage from './HomePage';
+import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
+import Loading from '../View.Utility/Loading';
 
 const scopes = "create:projects read:projects update:projects delete:projects" +
                 " create:tickets read:tickets update:tickets delete:tickets";
@@ -37,6 +37,12 @@ function App() {
       </Auth0Provider>
     </div>
   );
+}
+
+function HomePage() {
+  const { loginWithRedirect } = useAuth0();
+  loginWithRedirect();
+  return (<Loading/>);
 }
 
 export default App;
