@@ -18,6 +18,12 @@ import {withAuthenticationRequired, useAuth0} from '@auth0/auth0-react'
 import jwt from 'jsonwebtoken';
 import MyTickets from '../View.Tickets/MyTickets';
 import Dashboard from '../View.Dashboard/Dashboard';
+import axios from "axios";
+import Error from '../View.Utility/Error';
+
+axios.create({
+  baseURL: "http://192.168.178.24:8080/api/",
+});
 
 function LeftBar() {
   let { url } = useRouteMatch();
@@ -102,8 +108,18 @@ const ProtectedRoute = ({ component, ...args }) => (
   />
 );
 
+
+
 function BugTracker() {
-  return (<ProtectedRoute path="/dashboard" component={BugTrackerHome}/>);
+
+  let [ status, setStatus ] = useState(false);
+
+  useEffect(() => {
+    fetch('http://192.168.178.24:8080/status')
+    .then(response => { if (response.ok) setStatus(true) })
+  }, [])
+  
+  return status ?  <ProtectedRoute path="/dashboard" component={BugTrackerHome}/> : <Error/>
 }
 
 export default BugTracker;
