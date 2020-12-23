@@ -1,17 +1,47 @@
 import '../Styles/App.css';
 
 import React, { useState, useEffect } from "react";
-import Table from '../View.Utility/Table'
 import TicketController from "../../Controller/Ticket.Controller";
 import { useAuth0 } from "@auth0/auth0-react";
+import { DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
+
+function Ticket(props) {
+          return (<>
+                  <h2>{props.ticket.ticketName}</h2>
+                  <h2>Priority</h2>
+                  <p>{props.ticket.priority}</p></>);
+}
+
+function Column(props) {
+  return (<> <h1>{props.colTitle}</h1>
+    <Droppable droppableId={props.droppableId}>
+      {(provided) => (
+        <ul className={props.droppableId} {...provided.droppableProps} ref={provided.innerRef}>
+          {props.tickets.map((ticket, index) => {
+            return(
+              <Draggable key={ticket.id} draggableId={ticket.id} index={index}>
+                {(provided) => (
+                  <li className="listItem" 
+                  ref={provided.innerRef} 
+                  {...provided.draggableProps} 
+                  {...provided.dragHandleProps}>
+                    <Ticket ticket={ticket}/>
+                  </li>
+                )}
+              </Draggable>
+            );
+          })}
+        {provided.placeholder}
+        </ul>
+      )}
+    </Droppable></>);
+}
 
 function MyTicketsDeveloper() {
-  const headTitle = ["Ticket Name", "Ticket Description", "Type", "Priority", "Developer", "Status"];
-  const columns = ["ticketName", "ticketDescription", "type", "priority", "developerEmail", "status"];
-  const ticketController = new TicketController();
-  let [ tickets, setTickets] = useState([]);
+  let [ tickets, setTickets ] = useState({openTickets: [], inProgressTickets: [], closedTickets: []});
   const { user, getAccessTokenSilently } = useAuth0();
-
+  const ticketController = new TicketController();
+  
   useEffect(() => {
     const getTickets = async () => {
      try {
@@ -21,7 +51,12 @@ function MyTicketsDeveloper() {
         ticketController.setAccessToken(token);
         ticketController.getTicketsByDeveloperEmail(user.email)
           .then(response => {
-            setTickets(response.data)
+            setTickets(prevState => ({...prevState, 
+              openTickets: response.data.filter(ticket => ticket.status === "openTickets")}));
+            setTickets(prevState => ({...prevState, 
+              inProgressTickets: response.data.filter(ticket => ticket.status === "inProgressTickets")}));
+            setTickets(prevState => ({...prevState, 
+              closedTickets: response.data.filter(ticket => ticket.status === "closedTickets")}));
           })
           .catch(e => {
             console.log("Ticket error => " + e);
@@ -33,20 +68,54 @@ function MyTicketsDeveloper() {
     getTickets();
   }, []);
 
-  //TODO delete delete icon from table
-  const deleteTicketById = () => {
-      console.log("NOTHING");
-  }
+  const updateTicket = async (ticket) => {
+    try {
+      const token = await getAccessTokenSilently({
+        permissions: "update:tickets"
+      });
+      ticketController.setAccessToken(token);
+      ticketController.updateTicket(ticket)
+        .then(response => console.log(response))
+        .catch(e => {
+          console.log("Ticket error => " + e);
+        });
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
 
+  const moveTo = (result) => {
+    if (!result.destination) return;
+    const sourceItems = tickets[result.source.droppableId];
+    const destinationItems = tickets[result.destination.droppableId];
+    const [item] = sourceItems.splice(result.source.index, 1);
+    destinationItems.splice(result.destination.index, 0, item);
+    console.log(item);
+    item.status = result.destination.droppableId;
+    updateTicket(item);
+    setTickets(prevState => ({...prevState, 
+      [result.source.droppableId]: sourceItems, [result.destination.droppableId]: destinationItems}));
+  }
+  
   return (
     <div className="content-container">
       <div className="content-title">
         <h1>My Tickets</h1>
-        <h2>You can see tickets details and update them!</h2>
+        <h2>Move the tickets through the columns to change their status!</h2>
       </div>
-        <Table modalText={"Are you sure to delete this ticket?"} 
-        delete={deleteTicketById} 
-        data={tickets} columns={columns} head={headTitle}/>
+      <div id="boxes" className="row">
+      <DragDropContext onDragEnd={moveTo}>
+        <div className="col col-12 col-lg-4">
+          <Column colTitle={"Open"} droppableId={"openTickets"} tickets={tickets.openTickets} />
+        </div>
+        <div className="col col-12 col-lg-4">
+          <Column colTitle={"In progress"} droppableId={"inProgressTickets"} tickets={tickets.inProgressTickets} />
+        </div>
+        <div className="col col-12 col-lg-4">
+          <Column colTitle={"Closed"} droppableId={"closedTickets"} tickets={tickets.closedTickets} />
+        </div>
+        </DragDropContext>
+      </div>
     </div>
     );
 }

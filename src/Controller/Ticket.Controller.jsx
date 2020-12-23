@@ -29,6 +29,16 @@ export default class TicketController {
     });
   }
 
+  updateTicket(ticket) {
+    return http.put(`/tickets/updateTicket/${ticket.id}`, ticket, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      }
+    });
+  }
+
+  
+
   deleteTicketById(id) {
     return http.delete(`/tickets/deleteTicket/${id}`, {
       headers: {
