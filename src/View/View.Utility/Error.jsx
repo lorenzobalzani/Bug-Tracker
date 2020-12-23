@@ -1,5 +1,3 @@
-import '../Styles/Error.css';
-
 function Error(){
     return (
     <div class="error container">
