@@ -1,6 +1,6 @@
 function Error(){
     return (
-    <div class="error container">
+    <div className="error container">
         <div className="row">
             <div className="col col-12">
              <h1>500 Server unreachable</h1>

@@ -7,9 +7,9 @@ import Doughnut from '../View.Utility/Doughnut';
 
 function DashboardProjectManager(props) {
     const { user, getAccessTokenSilently } = useAuth0();
-    let [ statusGraph, setStatusGraph ] = useState();
-    let [ typeGraph, setTypeGraph ] = useState();
-    let [ priorityGraph, setPriorityGraph ] = useState();
+    let [ statusGraph, setStatusGraph ] = useState([]);
+    let [ typeGraph, setTypeGraph ] = useState([]);
+    let [ priorityGraph, setPriorityGraph ] = useState([]);
     let [ projects, setProjects ] = useState([]);
     let [ selectedProject, setSelectedProject ] = useState("");
     const ticketController = new TicketController();
@@ -45,9 +45,6 @@ function DashboardProjectManager(props) {
             ticketController.setAccessToken(token);
             ticketController.getTicketsByProjectId(id)
             .then(response => {
-                setStatusGraph([]);
-                setTypeGraph([]);
-                setPriorityGraph([]);
                 setStatusGraph(statusGraph => [...statusGraph, response.data.filter(ticket => ticket.status === "openTickets").length, 
                 response.data.filter(ticket => ticket.status === "inProgressTickets").length, response.data.filter(ticket => ticket.status === "closedTickets").length]);
                 setTypeGraph(typeGraph => [...typeGraph, response.data.filter(ticket => ticket.type === "Bug").length, 

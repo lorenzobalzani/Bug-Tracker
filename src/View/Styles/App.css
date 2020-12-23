@@ -164,7 +164,7 @@ li {
 #boxes > .col {
   height: 90% !important;
   width: 30% !important;
-  overflow: hidden !important;
+  overflow: scroll !important;
 }
 
 #boxes > .col ul {

@@ -112,14 +112,17 @@ const ProtectedRoute = ({ component, ...args }) => (
 
 function BugTracker() {
 
-  let [ status, setStatus ] = useState(false);
+  let [ status, setStatus ] = useState(true);
 
   useEffect(() => {
     fetch('http://192.168.178.24:8080/status')
-    .then(response => { if (response.ok) setStatus(true) })
+    .then()
+    .catch(response => {
+      setStatus(false)
+    })
   }, [])
   
-  return status ?  <ProtectedRoute path="/dashboard" component={BugTrackerHome}/> : <Error/>
+  return status ? <ProtectedRoute path="/dashboard" component={BugTrackerHome}/> : <Error/>
 }
 
 export default BugTracker;
