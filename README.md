@@ -44,6 +44,7 @@ Clone the repo and open a terminal in the folder. Then tip the following command
 * User management by admin inside the app;
 * Profile editing;
 * Notifications;
+* Dark mode;
 
 ## Status
 Project is actually in progress. I keep working on it in free time.
