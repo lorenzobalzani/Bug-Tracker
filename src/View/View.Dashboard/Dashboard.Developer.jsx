@@ -6,10 +6,9 @@ import Doughnut from '../View.Utility/Doughnut';
 
 function DashboardDeveloper(props) {
     const { user, getAccessTokenSilently } = useAuth0();
-    let [ statusGraph, setStatusGraph] = useState();
-    let [ typeGraph, setTypeGraph] = useState();
-    let [ priorityGraph, setPriorityGraph] = useState();
-    let [ tickets, setTickets ] = useState([]);
+    let [ statusGraph, setStatusGraph] = useState([]);
+    let [ typeGraph, setTypeGraph] = useState([]);
+    let [ priorityGraph, setPriorityGraph] = useState([]);
 
     useEffect(() => {
         const ticketController = new TicketController();
@@ -21,11 +20,6 @@ function DashboardDeveloper(props) {
                ticketController.setAccessToken(token);
                ticketController.getTicketsByDeveloperEmail(user.email)
                 .then(response => {
-                  console.log(response.data)
-                    setTickets(response.data);
-                    setStatusGraph([]);
-                    setTypeGraph([]);
-                    setPriorityGraph([]);
                     setStatusGraph(statusGraph => [...statusGraph, response.data.filter(ticket => ticket.status === "openTickets").length, 
                     response.data.filter(ticket => ticket.status === "inProgressTickets").length, response.data.filter(ticket => ticket.status === "closedTickets").length]);
                     setTypeGraph(typeGraph => [...typeGraph, response.data.filter(ticket => ticket.type === "Bug").length, 
@@ -44,7 +38,7 @@ function DashboardDeveloper(props) {
     }, [getAccessTokenSilently, user])
 
     return (<>
-          {tickets.length > 0 ?
+          {statusGraph.length > 0 && typeGraph.length > 0 && priorityGraph.length > 0 ?
             <>
             <div className="graph col col-12 col-xl-6">
               {props.pieGraphs ?  <Doughnut title={"Tickets by status"} data={statusGraph} labelsX={['Open', 'In progress', 'Closed']} 

@@ -6,10 +6,10 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 
 function Ticket(props) {
-          return (<>
-                  <h2>{props.ticket.ticketName}</h2>
-                  <h2>Priority</h2>
-                  <p>{props.ticket.priority}</p></>);
+    return (<>
+            <h2>{props.ticket.ticketName}</h2>
+            <h2>Priority</h2>
+            <p>{props.ticket.priority}</p></>);
 }
 
 function Column(props) {
@@ -21,12 +21,14 @@ function Column(props) {
             return(
               <Draggable key={ticket.id} draggableId={ticket.id} index={index}>
                 {(provided) => (
+                  <>
                   <li className="listItem" 
                   ref={provided.innerRef} 
                   {...provided.draggableProps} 
                   {...provided.dragHandleProps}>
                     <Ticket ticket={ticket}/>
                   </li>
+                  </>
                 )}
               </Draggable>
             );
@@ -75,7 +77,7 @@ function MyTicketsDeveloper() {
       });
       ticketController.setAccessToken(token);
       ticketController.updateTicket(ticket)
-        .then(response => console.log(response))
+        .then()
         .catch(e => {
           console.log("Ticket error => " + e);
         });
@@ -90,7 +92,6 @@ function MyTicketsDeveloper() {
     const destinationItems = tickets[result.destination.droppableId];
     const [item] = sourceItems.splice(result.source.index, 1);
     destinationItems.splice(result.destination.index, 0, item);
-    console.log(item);
     item.status = result.destination.droppableId;
     updateTicket(item);
     setTickets(prevState => ({...prevState, 
@@ -113,6 +114,7 @@ function MyTicketsDeveloper() {
         </div>
         <div className="col col-12 col-lg-4">
           <Column colTitle={"Closed"} droppableId={"closedTickets"} tickets={tickets.closedTickets} />
+          
         </div>
         </DragDropContext>
       </div>
