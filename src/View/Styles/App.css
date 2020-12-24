@@ -9,8 +9,6 @@ html, body, #root, .App, .App div, #leftColumn{
 @media screen and (max-width: 767px) {
   .container-fluid {
     height: 100% !important;
-    padding-right: 0 !important;
-    padding-left: 0 !important;
   }
 
   #nav, #leftColumn {
@@ -27,14 +25,7 @@ html, body, #root, .App, .App div, #leftColumn{
   }
 
   .navbar {
-    display: block !important;
-    width: 100% !important;
-  }
-
-  #rightColumn > .row {
-    width: auto !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
+    display: block !important; 
   }
 }
 

@@ -111,6 +111,7 @@ function NavBar (){
 
 function BugTrackerHome() {
   return(
+  <>
   <div className="container-fluid">
     <div className="row">
       <LeftBar/>
@@ -119,7 +120,7 @@ function BugTrackerHome() {
         <NavBar/>
       </div>
     </div>
-  </div>
+  </div></>
 );
 }
 
