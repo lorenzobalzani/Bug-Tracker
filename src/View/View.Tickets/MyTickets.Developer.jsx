@@ -8,8 +8,8 @@ import { DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 function Ticket(props) {
     return (<>
             <h2>{props.ticket.ticketName}</h2>
-            <h2>Priority</h2>
-            <p>{props.ticket.priority}</p></>);
+            <p>{props.ticket.priority}</p>
+            <p>{props.ticket.type}</p></>);
 }
 
 function Column(props) {
@@ -108,13 +108,21 @@ function MyTicketsDeveloper() {
       <DragDropContext onDragEnd={moveTo}>
         <div className="col col-12 col-lg-4">
           <Column colTitle={"Open"} droppableId={"openTickets"} tickets={tickets.openTickets} />
+          {tickets.openTickets.length < 1 && (
+            <h3>There are no open tickets</h3>
+          )}
         </div>
         <div className="col col-12 col-lg-4">
           <Column colTitle={"In progress"} droppableId={"inProgressTickets"} tickets={tickets.inProgressTickets} />
+          {tickets.inProgressTickets.length < 1 && (
+            <h3>There are no in progress tickets</h3>
+          )}
         </div>
         <div className="col col-12 col-lg-4">
           <Column colTitle={"Closed"} droppableId={"closedTickets"} tickets={tickets.closedTickets} />
-          
+          {tickets.closedTickets.length < 1 && (
+            <h3>There are no closed tickets</h3>
+          )}
         </div>
         </DragDropContext>
       </div>
