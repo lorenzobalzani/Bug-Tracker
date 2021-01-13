@@ -9,7 +9,7 @@
 * [Contact](#contact)
 
 ## General info
-The main purpose of the project is to create a clone of an advanced tracking tool available in the market. This allowed me to learn some of the leading technologies used to create SPAs.
+The main purpose of the project is to create a clone of an advanced bug tracking tool available in the market. This allowed me to learn some of the leading technologies used to create SPAs.
 
 <!-- ## Screenshots
 [Example screenshot](./img/screenshot.png) -->
