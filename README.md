@@ -4,6 +4,7 @@
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
+* [Deployment](#technologies)
 * [Features](#features)
 * [Status](#status)
 * [Contact](#contact)
@@ -25,6 +26,9 @@ The main purpose of the project is to create my own version of an advanced bug t
 ## Setup and run
 Clone the repo and open a terminal in the folder. Then tip the following commands:\
 `npm install && cd src && npm start`
+
+## Deployment
+The app is deployed using Heroku (https://bug-tracker-balzani.herokuapp.com)
 
 ## Features
 ### Ready features
