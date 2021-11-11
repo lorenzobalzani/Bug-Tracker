@@ -22,7 +22,7 @@ function App() {
       <Auth0Provider
           domain="balzanilo.eu.auth0.com"
           clientId="tyffmLPmLw90LohrxChAf7no9dfJyNUz"
-          redirectUri="http://192.168.178.24:3000/dashboard"
+          redirectUri="https://bug-tracker-balzani.herokuapp.com/dashboard"
           audience="https://bugtracker-api"
           onRedirectCallback={onRedirectCallback}
           /*These are all scopes that app could use in the future. After authentication user will have only own permissions, 
