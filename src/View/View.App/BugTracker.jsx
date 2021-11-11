@@ -22,7 +22,7 @@ import axios from "axios";
 import Error from '../View.Utility/Error';
 
 axios.create({
-  baseURL: "http://192.168.178.24:8080/api/",
+  baseURL: "https://bug-tracker-server-balzani.herokuapp.com/api/",
 });
 
 function LeftBar() {
@@ -115,7 +115,7 @@ function BugTracker() {
   let [ status, setStatus ] = useState(true);
 
   useEffect(() => {
-    fetch('http://192.168.178.24:8080/status')
+    fetch('https://bug-tracker-server-balzani.herokuapp.com/status')
     .then()
     .catch(response => {
       setStatus(false)
